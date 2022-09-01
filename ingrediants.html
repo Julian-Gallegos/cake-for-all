@@ -16,118 +16,96 @@
             <h1 class="ingrediants">
                 <ul class="radios">
                     <li>
-                        <p>Flour</p>
+                        <p>Flour Mix</p>
                         <div class="radio"><input type="radio" name="flour" id="flour1" value1="dryIngrediants" value="0"></div> 
                         <!-- Refer to values when referencing radios that are clicked on, check backend list corresponding with value1 and dereference at index corresponding with value  -->
-                        <div class="label">1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder</div>
+                        <label for="flour1" class="label">2 ⅔ cup all-purpose organic white flour + 1 T. Baking powder + ½ tsp sea salt </label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flour" id="flour2" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups rice flour, 1 and 3/4 teaspoons baing soda</div>
+                        <div class="radio"><input type="radio" name="flour" id="flour2" value1="dryIngrediants" value="1"></div>
+                        <label for="flour2" class="label">1 ⅓ cup Rice Flour + 1 cup Tapioca Starch + 3 T Baking Powder + ½ tsp Salt (Gluten-free)</label>
                         <div class="clear"></div>
-                        <button class="custom">Custom Ingrediant</button>
+                        <button class="custom" id="customflour">CUSTOM MIX</button>
+                        <label class="customtext">Combined total 2/3 c flour + 1-3 T. leavening + 1/2 tsp salt (optional)</label>
                     </li>
                     <li>
-                        <p>Flour</p>
-                        <div class="radio"><input type="radio" name="flour" id="flour1" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder</div>
+                        <p>Sweeetener</p>
+                        <div class="radio"><input type="radio" name="sweet" id="sweet1" value1="sugarIngrediants" value="0"></div>
+                        <label for="sweet1" class="label">1 cup Evaporated Cane Sugar</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flour" id="flour2" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups rice flour, 1 and 3/4 teaspoons baing soda</div>
+                        <div class="radio"><input type="radio" name="sweet" id="sweet2" value1="sugarIngrediants" value="1"></div>
+                        <label for="sweet2" class="label">1 ⅓ cup allulose (low glycemic sugar alternative as found in Jackfruit)</label>
                         <div class="clear"></div>
-                        <button class="custom">Custom Ingrediant</button>
+                        <button class="custom" id="customsweet">CUSTOM MIX</button>
+                        <label class="customtext">combined total equal to 1 cup cane sugar</label>
                     </li>
                     <li>
-                        <p>Flour</p>
-                        <div class="radio"><input type="radio" name="flour" id="flour1" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder</div>
+                        <p>Flavorings</p>
+                        <div class="radio"><input type="radio" name="flour" id="flavor1" value1="Ingrediants" value="0"></div>
+                        <label for="flavor1" class="label">1 T. vanilla extract</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flour" id="flour2" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups rice flour, 1 and 3/4 teaspoons baing soda</div>
+                        <div class="radio"><input type="radio" name="flour" id="flavor2" value1="Ingrediants" value="1"></div>
+                        <label for="flavor2" class="label">½ tspn Cardamom</label>
                         <div class="clear"></div>
-                        <button class="custom">Custom Ingrediant</button>
+                        <button class="custom" id="customflavor">CUSTOM MIX</button>
+                        <label class="customtext">up to 2 T. of combined flavorings</label>
                     </li>
                     <li>
-                        <p>Flour</p>
-                        <div class="radio"><input type="radio" name="flour" id="flour1" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder</div>
+                        <p>Eggs and Alternatives</p>
+                        <div class="radio"><input type="radio" name="flour" id="egg1" value1="Ingrediants" value="0"></div>
+                        <label for="egg1" class="label">3 chicken eggs</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flour" id="flour2" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups rice flour, 1 and 3/4 teaspoons baing soda</div>
+                        <div class="radio"><input type="radio" name="flour" id="egg2" value1="Ingrediants" value="1"></div>
+                        <label for="egg2" class="label">¾ cup applesauce</label>
                         <div class="clear"></div>
-                        <button class="custom">Custom Ingrediant</button>
+                        <button class="custom" id="customegg">CUSTOM MIX</button>
+                        <label class="customtext">to equal 3 eggs</label>
                     </li>
                     <li>
-                        <p>Flour</p>
-                        <div class="radio"><input type="radio" name="flour" id="flour1" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder</div>
+                        <p>Dairy and Alternatives</p>
+                        <div class="radio"><input type="radio" name="flour" id="dairy1" value1="Ingrediants" value="0"></div>
+                        <label for="dairy1" class="label">¾ cup whole cowmilk</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flour" id="flour2" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups rice flour, 1 and 3/4 teaspoons baing soda</div>
+                        <div class="radio"><input type="radio" name="flour" id="dairy2" value1="Ingrediants" value="1"></div>
+                        <label for="dairy2" class="label">¾ cup Hazelnut milk + 2 T. apple cider vinegar</label>
                         <div class="clear"></div>
-                        <button class="custom">Custom Ingrediant</button>
+                        <button class="custom" id="customdairy">CUSTOM MIX</button>
+                        <label class="customtext">¾ cup to be corrected for liquid sweeteners</label>
                     </li>
                     <li>
-                        <p>Flour</p>
-                        <div class="radio"><input type="radio" name="flour" id="flour1" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder</div>
+                        <p>Shortening</p>
+                        <div class="radio"><input type="radio" name="flour" id="shortening1" value1="Ingrediants" value="0"></div>
+                        <label for="shortening1" class="label">1 cup softened butter</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flour" id="flour2" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups rice flour, 1 and 3/4 teaspoons baing soda</div>
+                        <div class="radio"><input type="radio" name="flour" id="shortening2" value1="Ingrediants" value="1"></div>
+                        <label for="shortening2" class="label">1 cup softened vegan buttery spread (pressed, no trans fatty acids)</label>
                         <div class="clear"></div>
-                        <button class="custom">Custom Ingrediant</button>
+                        <button class="custom" id="customshortening">CUSTOM MIX</button>
+                        <label class="customtext">¾ cup vegetable oils</label>
                     </li>
                     <li>
-                        <p>Flour</p>
-                        <div class="radio"><input type="radio" name="flour" id="flour1" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder</div>
+                        <p>Whipped Topping</p>
+                        <div class="radio"><input type="radio" name="flour" id="topping1" value1="Ingrediants" value="0"></div>
+                        <label for="topping1" class="label">2 cups whipping cream (heavy cream) chilled + 2 T. evaporated cane sugar + 1 tsp vanilla (optional)</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flour" id="flour2" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups rice flour, 1 and 3/4 teaspoons baing soda</div>
+                        <div class="radio"><input type="radio" name="flour" id="topping2" value1="Ingrediants" value="1"></div>
+                        <label for="topping2" class="label">2-3 cans Coconut Cream (chilled overnight) + 2 T. confectioner's sugar (optional) + 1 tsp vanilla (optional)</label>
                         <div class="clear"></div>
-                        <button class="custom">Custom Ingrediant</button>
+                        <button class="custom" id="customtopping">CUSTOM MIX</button>
+                        <label class="customtext">needs approximately 2 cups topping to frost</label>
                     </li>
                     <li>
-                        <p>Flour</p>
-                        <div class="radio"><input type="radio" name="flour" id="flour1" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder</div>
+                        <p>Decorations</p>
+                        <div class="radio"><input type="radio" name="flour" id="decoration1" value1="Ingrediants" value="0"></div>
+                        <label for="decoration1" class="label">½ cup strawberries sliced</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flour" id="flour2" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups rice flour, 1 and 3/4 teaspoons baing soda</div>
+                        <div class="radio"><input type="radio" name="flour" id="decoration2" value1="Ingrediants" value="1"></div>
+                        <label for="decoration2" class="label">½ cup Raspberries</label>
                         <div class="clear"></div>
-                        <button class="custom">Custom Ingrediant</button>
-                    </li>
-                    <li>
-                        <p>Flour</p>
-                        <div class="radio"><input type="radio" name="flour" id="flour1" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder</div>
-                        <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flour" id="flour2" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups rice flour, 1 and 3/4 teaspoons baing soda</div>
-                        <div class="clear"></div>
-                        <button class="custom">Custom Ingrediant</button>
-                    </li>
-                    <li>
-                        <p>Flour</p>
-                        <div class="radio"><input type="radio" name="flour" id="flour1" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder</div>
-                        <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flour" id="flour2" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups rice flour, 1 and 3/4 teaspoons baing soda</div>
-                        <div class="clear"></div>
-                        <button class="custom">Custom Ingrediant</button>
-                    </li>
-                    <li>
-                        <p>Flour</p>
-                        <div class="radio"><input type="radio" name="flour" id="flour1" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder</div>
-                        <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flour" id="flour2" value=" 1 and 1/2 cups wheat flour, 1 and 3/4 teaspoons baking powder"></div>
-                        <div class="label">1 and 1/2 cups rice flour, 1 and 3/4 teaspoons baing soda</div>
-                        <div class="clear"></div>
-                        <button class="custom">Custom Ingrediant</button>
+                        <button class="custom" id="customdecoration">CUSTOM MIX</button>
+                        <label class="customtext">sky's the limit…keep it legal!</label>
                     </li>
                 </ul>
-                <button class="submit"><a href="finish.html">Submit</a></button>
+                <button class="submit custom"><a href="finish.html">Submit</a></button>
             </h1>
         </div>
         <footer class="navbar">
