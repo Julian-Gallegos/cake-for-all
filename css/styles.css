@@ -1,0 +1,140 @@
+html {
+    height: 100vh;
+    min-width: 600px;
+    background-image: linear-gradient(210deg, #ffffff,#9c865e);
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.startscreen {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.logo {
+    background-color: rgb(32, 32, 32);
+    overflow: hidden;
+    align-items: center;
+    width: 100%;
+}
+.logo button {
+    background-color: transparent;
+    border: 0;
+}
+.logo button a {
+    display: block;
+    color: #f0dfcf;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 24px;
+    font-family: 'Kurale';
+}
+
+.logo button:hover {
+    background-color: rgb(189, 137, 79);
+    color: black;
+}
+
+h1[class=start] {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: block;
+    margin: 0;
+}
+
+h1[class=start] button {
+    background-color: #aa6804;
+    font-size: 180%;
+}
+
+h1[class=start] button a {
+    color: #ffffff;
+}
+
+h1[class=start] button a:hover {
+    display: block;
+    color: rgb(243, 183, 114);
+}
+
+h1[class=continue] {
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: block;
+    margin: 0;
+}
+
+h1[class=continue] button {
+    background-color: #aa6804;
+    font-size: 120%;
+}
+
+h1[class=continue] button a {
+    color: #ffffff;
+}
+
+h1[class=start] button a:hover {
+    display: block;
+    color: rgb(243, 183, 114);
+}
+
+h2[class=index] {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: block;
+    margin: 0;
+    font-family: 'Kurale';
+    font-size: 180%;
+}
+h2[class=instructions] {
+    white-space: pre-wrap;
+    align-items: center;
+    display: flex;
+    display: block;
+    margin: 0 auto;
+    width: 900px;
+    font-size: 110%;
+    padding: 60px;
+}
+
+ul {
+    padding-left: 0px;
+    list-style: none;
+}
+
+.navbar {
+    background-color: rgb(32, 32, 32);
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #ffffff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .navbar a:hover {
+    background-color: rgb(189, 137, 79);
+    color: black;
+  }
+
+  .navbar a.active {
+    background-color: #aa6804;
+    color: white;
+  }
