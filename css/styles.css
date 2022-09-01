@@ -21,7 +21,6 @@ html {
     display: flex;
     flex-direction: column;
     margin: auto;
-    position: relative;
 }
 
 .logo {
@@ -73,12 +72,9 @@ h1[class=start] button a:hover {
 }
 
 h1[class=continue] {
-    position: absolute;
-    top: 85%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    display: block;
-    margin: 0;
+    width: 18%;
+    margin: 0 auto;
+    padding-bottom: 5%;
 }
 
 h1[class=continue] button {
@@ -108,13 +104,10 @@ h2[class=index] {
 }
 h2[class=instructions] {
     white-space: pre-wrap;
-    align-items: center;
     display: flex;
-    display: block;
-    margin: 0 auto;
-    width: 900px;
     font-size: 110%;
-    padding: 60px;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 ul {

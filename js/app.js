@@ -1,4 +1,7 @@
 // Local Variables
+// !TODO Refer to values when referencing radios that are clicked on, 
+// check backend list corresponding with value1 and dereference
+//  at index corresponding with value
 dryIngrediants = [
     [['Wheat Flour', '1 and 1/2 cups'], ['baking powder','1 and 3/4 teaspoons']],
     [['Rice Flour', '1 and 1/2 cups'], ['baking powder','1 and 3/4 teaspoons']]
