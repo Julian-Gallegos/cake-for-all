@@ -1,8 +1,23 @@
-// Local Variables
-// !TODO Refer to values when referencing radios that are clicked on, 
-// check backend list corresponding with value1 and dereference
-//  at index corresponding with value
+/* Created by Julian Javier Gallegos 
+*  Date of last text entry: 9/2/2022
+*  Stay well everyone
+*
+*
+*   TODO List
+*   TODO: Track Radio checks and generate ingredient list on finish.html
+*         -  Refer to values when referencing radios that are clicked on, 
+*            check backend list corresponding with value1 and dereference
+*            at index corresponding with value
+*   TODO: Include buttons to remove and edit custom radio listings, and make sure those remove
+*         or edit the localStorage listings too (which means the variable arrays)
+*   TODO: Remove all current listings on ingredients.html (except <p> 
+*         and the stuff relating to customs)
+*         and have the backend ingredient lists like flourIngredients
+*         fill them out automatically
+*   TODO: This Relates to the above, have user custom listings saved, so it generates those too.   
+*/
 
+// Variables
 flourIngredients = [
     [['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
     [['Rice Flour', '1 ⅓ Cup'], ['Tapioca Starch','1 Cup'], ['Baking Powder', '3 T.'], ['Sea Salt', '½ Tsp']]
@@ -239,7 +254,7 @@ function retrieve(key){
 }
 //on start
 (function(){
-    let test = localStorage.getItem('flour');
+    let test = localStorage.getItem('flour'); // TODO: MAKE THIS BETTER
     if (test) {
         if (document.URL.includes("index.html")) {
             let h2 = document.createElement('h2');
