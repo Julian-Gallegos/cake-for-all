@@ -2,6 +2,7 @@
 // !TODO Refer to values when referencing radios that are clicked on, 
 // check backend list corresponding with value1 and dereference
 //  at index corresponding with value
+
 flourIngredients = [
     [['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
     [['Rice Flour', '1 ⅓ Cup'], ['Tapioca Starch','1 Cup'], ['Baking Powder', '3 T.'], ['Sea Salt', '½ Tsp']]
@@ -42,6 +43,10 @@ decorationIngredients = [
     [['Raspberries', '½ Cup']]
 ];
 
+// Indices are important for array references when adding new ingredients, and this is easier to read than a 4D array would be
+// I really hope this stores the array references and does not copy all of the arrays contents
+let referenceArray = [flourIngredients,sweetenerIngredients,flavoringsIngredients,eggIngredients,dairyIngredients,shorteningIngredients,whippedIngredients,decorationIngredients];
+
 /*
     Order: FLour Mix, Sweetener, Flavorings, Eggs, Dairy, Shortening, Whippped Topping, Decorations
     Suborder: unordered pairs of Ingredients and amounts
@@ -49,14 +54,14 @@ decorationIngredients = [
 */
 finishedRecipes = [ 
     [
-        [flourIngredients[0]],
-        [sweetenerIngredients[0]],
-        [flavoringsIngredients[0]],
-        [eggIngredients[0]],
-        [dairyIngredients[0]],
-        [shorteningIngredients[0]],
-        [whippedIngredients[0]],
-        [decorationIngredients[0]]
+        flourIngredients[0],
+        sweetenerIngredients[0],
+        flavoringsIngredients[0],
+        eggIngredients[0],
+        dairyIngredients[0],
+        shorteningIngredients[0],
+        whippedIngredients[0],
+        decorationIngredients[0]
     ],
     [
         [flourIngredients[1]],
@@ -70,8 +75,9 @@ finishedRecipes = [
     ]
 ]
 
-let customButtonClicked = [0,0,0,0,0,0,0,0] // 0 = custom forms closed, 1 = open
-let customFormSizes = [0,0,0,0,0,0,0,0]
+let customButtonClicked = [0,0,0,0,0,0,0,0] // 0 = custom forms closed, 1 = open, for each custom mix form, probably redundant
+let customFormSizes = [0,0,0,0,0,0,0,0] // number of form rows opened by Add to Mix button, for each custom mix
+let shortListNames = ['flour','sweetener','flavor','egg','dairy','shortening','whippped','decoration'];
 // Event Listeners
 if (document.URL.includes("ingredients.html")) {
     let customs = document.querySelectorAll('.custom');
@@ -162,7 +168,59 @@ function handleClickCustomAddRemoveOrSubmit(e) {
             e.target.remove();
         }
     } else { // If Submit Mix Clicked
+        let ul = document.getElementById('ul'+(indexNum+1));
+        let ingredientMix = [];
+        for (let i = 0; i < ul.children.length; i++) {
+            let ingredient = ul.children[i].children[0].children[0].value; // ul->li[i]->form->input (ingredient)
+            let amount = ul.children[i].children[0].children[1].value; // ul->li[i]->form->input (amount)
+            if (ingredient == '' || amount == '') { // if not all forms filled then do not save custom ingredient
+                return;
+            }
+            ingredientMix[i] = [ingredient, amount];
+        }
+        referenceArray[indexNum].push(ingredientMix);
+
+        store(shortListNames[indexNum],referenceArray[indexNum]);
+
+        let div = document.createElement('div');
+        div.classList.add('radio');
+        let id = shortListNames[indexNum] + referenceArray[indexNum].length;
+        div.innerHTML = `
+            <input type="radio" name="`+shortListNames[indexNum]+`" id="`+id+`" value1="`+shortListNames[indexNum]+`Ingredients" value="`+(referenceArray[indexNum].length-1)+`">
+        `;
         
+        let label = document.createElement('label');
+        label.htmlFor = id;
+        label.classList.add('label');
+        let inner = ingredientMix[0][1]+' '+ingredientMix[0][0];
+        if (ingredientMix.length > 1) {
+            console.log('ping');
+            for (let i = 1; i < ingredientMix.length; i++) {
+                inner = inner.concat(' + '+ingredientMix[i][1]+' '+ingredientMix[i][0]);
+            }
+        }
+        label.innerText = inner;
+
+        let clear = document.createElement('div');
+        clear.classList.add('clear');
+
+        let customlanding = document.getElementById('customlanding'+(indexNum+1));
+        customlanding.insertAdjacentElement('beforebegin', div);
+        customlanding.insertAdjacentElement('beforebegin', label);
+        customlanding.insertAdjacentElement('beforebegin', clear);
+
+        // Close custom ingredient forms (should turn this into helper)
+        document.getElementById('ul'+(indexNum+1)).innerHTML = '';
+        document.querySelector('[value="addcustom'+(indexNum+1)+'"]').remove();
+        document.querySelector('[value="submitcustom'+(indexNum+1)+'"]').remove();
+        let removeButton = document.querySelector('[value="removecustom'+(indexNum+1)+'"]');
+        if (removeButton) {
+            removeButton.remove();
+        }
+        customButtonClicked[indexNum] = 0;
+        customFormSizes[indexNum] = 0;
+        customlanding.innerText = 'CUSTOM MIX';
+
     }
 }
 
@@ -181,7 +239,7 @@ function retrieve(key){
 }
 //on start
 (function(){
-    let test = localStorage.getItem('cakes');
+    let test = localStorage.getItem('flour');
     if (test) {
         if (document.URL.includes("index.html")) {
             let h2 = document.createElement('h2');
