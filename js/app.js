@@ -8,6 +8,8 @@
 *         -  Refer to values when referencing radios that are clicked on, 
 *            check backend list corresponding with value1 and dereference
 *            at index corresponding with value
+*         -  eventlistener at end of page submit button onclick
+*         -  radios have a "checked" property, look for it online
 *   TODO: Include buttons to remove and edit custom radio listings, and make sure those remove
 *         or edit the localStorage listings too (which means the variable arrays)
 *   TODO: Remove all current listings on ingredients.html (except <p> 
@@ -100,7 +102,7 @@ if (document.URL.includes("ingredients.html")) {
         customs[i].addEventListener('click', handleClickCustom);
     }
 
-    document.querySelector('.submit.custom').addEventListener('click', handleSubmitIngredients);
+    document.querySelector('.submit').addEventListener('click', handleSubmitIngredients);
 }
 
 // Event Handlers
@@ -201,7 +203,7 @@ function handleClickCustomAddRemoveOrSubmit(e) {
         div.classList.add('radio');
         let id = shortListNames[indexNum] + referenceArray[indexNum].length;
         div.innerHTML = `
-            <input type="radio" name="`+shortListNames[indexNum]+`" id="`+id+`" value1="`+shortListNames[indexNum]+`Ingredients" value="`+(referenceArray[indexNum].length-1)+`">
+            <input type="radio" name="`+shortListNames[indexNum]+`" id="`+id+`" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">
         `;
         
         let label = document.createElement('label');
@@ -240,7 +242,18 @@ function handleClickCustomAddRemoveOrSubmit(e) {
 }
 
 function handleSubmitIngredients() {
-
+    let radioButtons = document.querySelectorAll('input[type=radio]');
+    let recipe = [];
+    for (const radioButton of radioButtons) {
+        if(radioButton.checked) {
+            //let value = document.querySelector('label[for='+radioButton.id+']').innerText;
+            let index = radioButton.getAttribute('data-index');
+            recipe.push(referenceArray[index].at(radioButton.value));
+        }
+    }
+    finishedRecipes.push(recipe);
+    store('recipes',finishedRecipes);
+    document.location.href = "finish.html";
 }
 
 // Helper Functions

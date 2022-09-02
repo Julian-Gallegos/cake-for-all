@@ -17,11 +17,11 @@
                 <ul class="radios">
                     <li>
                         <p>Flour Mix</p>
-                        <div class="radio"><input type="radio" name="flour" id="flour1" value1="flourIngredients" value="0"></div> 
-                        <!-- Refer to values when referencing radios that are clicked on, check backend list corresponding with value1 and dereference at index corresponding with value  -->
+                        <div class="radio"><input type="radio" name="flour" id="flour1" data-index="0" value="0"></div> 
+                        <!-- Refer to values when referencing radios that are clicked on, check backend list corresponding with data-index and dereference at index corresponding with value  -->
                         <label for="flour1" class="label">2 ⅔ cup all-purpose organic white flour + 1 T. Baking powder + ½ tsp sea salt </label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flour" id="flour2" value1="flourIngredients" value="1"></div>
+                        <div class="radio"><input type="radio" name="flour" id="flour2" data-index="0" value="1"></div>
                         <label for="flour2" class="label">1 ⅓ cup Rice Flour + 1 cup Tapioca Starch + 3 T. Baking Powder + ½ tsp Salt (Gluten-free)</label>
                         <div class="clear"></div>
                         <button type="button" id="customlanding1" class="custom" value="0">CUSTOM MIX</button>
@@ -31,11 +31,11 @@
                     </li>
                     <li>
                         <p>Sweeetener</p>
-                        <div class="radio"><input type="radio" name="sweetener" id="sweetener1" value1="sweetenerIngredients" value="0"></div>
-                        <label for="sweet1" class="label">1 cup Evaporated Cane Sugar</label>
+                        <div class="radio"><input type="radio" name="sweetener" id="sweetener1" data-index="1" value="0"></div>
+                        <label for="sweetener1" class="label">1 cup Evaporated Cane Sugar</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="sweetener" id="sweetener2" value1="sweetenerIngredients" value="1"></div>
-                        <label for="sweet2" class="label">1 ⅓ cup allulose (low glycemic sugar alternative as found in Jackfruit)</label>
+                        <div class="radio"><input type="radio" name="sweetener" id="sweetener2" data-index="1" value="1"></div>
+                        <label for="sweetener2" class="label">1 ⅓ cup allulose (low glycemic sugar alternative as found in Jackfruit)</label>
                         <div class="clear"></div>
                         <button type="button" id="customlanding2" class="custom" value="1">CUSTOM MIX</button>
                         <label class="customtext">combined total equal to 1 cup cane sugar</label>
@@ -43,10 +43,10 @@
                     </li>
                     <li>
                         <p>Flavorings</p>
-                        <div class="radio"><input type="radio" name="flavor" id="flavor1" value1="flavoringIngredients" value="0"></div>
+                        <div class="radio"><input type="radio" name="flavor" id="flavor1" data-index="2" value="0"></div>
                         <label for="flavor1" class="label">1 T. vanilla extract</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="flavor" id="flavor2" value1="flavoringIngredients" value="1"></div>
+                        <div class="radio"><input type="radio" name="flavor" id="flavor2" data-index="2" value="1"></div>
                         <label for="flavor2" class="label">½ tsp Cardamom</label>
                         <div class="clear"></div>
                         <button type="button" id="customlanding3" class="custom" value="2">CUSTOM MIX</button>
@@ -55,10 +55,10 @@
                     </li>
                     <li>
                         <p>Eggs and Alternatives</p>
-                        <div class="radio"><input type="radio" name="egg" id="egg1" value1="eggIngredients" value="0"></div>
+                        <div class="radio"><input type="radio" name="egg" id="egg1" data-index="3" value="0"></div>
                         <label for="egg1" class="label">3 chicken eggs</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="egg" id="egg2" value1="eggIngredients" value="1"></div>
+                        <div class="radio"><input type="radio" name="egg" id="egg2" data-index="3" value="1"></div>
                         <label for="egg2" class="label">¾ cup applesauce</label>
                         <div class="clear"></div>
                         <button type="button" id="customlanding4" class="custom" value="3">CUSTOM MIX</button>
@@ -67,10 +67,10 @@
                     </li>
                     <li>
                         <p>Dairy and Alternatives</p>
-                        <div class="radio"><input type="radio" name="dairy" id="dairy1" value1="dairyIngredients" value="0"></div>
+                        <div class="radio"><input type="radio" name="dairy" id="dairy1" data-index="4" value="0"></div>
                         <label for="dairy1" class="label">¾ cup whole cowmilk</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="dairy" id="dairy2" value1="dairyIngredients" value="1"></div>
+                        <div class="radio"><input type="radio" name="dairy" id="dairy2" data-index="4" value="1"></div>
                         <label for="dairy2" class="label">¾ cup Hazelnut milk + 2 T. apple cider vinegar</label>
                         <div class="clear"></div>
                         <button type="button" id="customlanding5" class="custom" value="4">CUSTOM MIX</button>
@@ -79,10 +79,10 @@
                     </li>
                     <li>
                         <p>Shortening</p>
-                        <div class="radio"><input type="radio" name="shortening" id="shortening1" value1="shorteningIngredients" value="0"></div>
+                        <div class="radio"><input type="radio" name="shortening" id="shortening1" data-index="5" value="0"></div>
                         <label for="shortening1" class="label">1 cup softened butter</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="shortening" id="shortening2" value1="shorteningIngredients" value="1"></div>
+                        <div class="radio"><input type="radio" name="shortening" id="shortening2" data-index="5" value="1"></div>
                         <label for="shortening2" class="label">1 cup softened vegan buttery spread (pressed, no trans fatty acids)</label>
                         <div class="clear"></div>
                         <button type="button" id="customlanding6" class="custom" value="5">CUSTOM MIX</button>
@@ -91,11 +91,11 @@
                     </li>
                     <li>
                         <p>Whipped Topping</p>
-                        <div class="radio"><input type="radio" name="whipped" id="whipped1" value1="whippedIngredients" value="0"></div>
-                        <label for="topping1" class="label">2 cups whipping cream (heavy cream) chilled + 2 T. evaporated cane sugar + 1 tsp vanilla (optional)</label>
+                        <div class="radio"><input type="radio" name="whipped" id="whipped1" data-index="6" value="0"></div>
+                        <label for="whipped1" class="label">2 cups whipping cream (heavy cream) chilled + 2 T. evaporated cane sugar + 1 tsp vanilla (optional)</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="whipped" id="whipped2" value1="whippedIngredients" value="1"></div>
-                        <label for="topping2" class="label">2-3 cans Coconut Cream (chilled overnight) + 2 T. confectioner's sugar (optional) + 1 tsp vanilla (optional)</label>
+                        <div class="radio"><input type="radio" name="whipped" id="whipped2" data-index="6" value="1"></div>
+                        <label for="whipped2" class="label">2-3 cans Coconut Cream (chilled overnight) + 2 T. confectioner's sugar (optional) + 1 tsp vanilla (optional)</label>
                         <div class="clear"></div>
                         <button type="button" id="customlanding7" class="custom" value="6">CUSTOM MIX</button>
                         <label class="customtext">needs approximately 2 cups topping to frost</label>
@@ -103,10 +103,10 @@
                     </li>
                     <li>
                         <p>Decorations</p>
-                        <div class="radio"><input type="radio" name="decoration" id="decoration1" value1="decorationIngredients" value="0"></div>
+                        <div class="radio"><input type="radio" name="decoration" id="decoration1" data-index="7" value="0"></div>
                         <label for="decoration1" class="label">½ cup strawberries sliced</label>
                         <div class="clear"></div>
-                        <div class="radio"><input type="radio" name="decoration" id="decoration2" value1="decorationIngredients" value="1"></div>
+                        <div class="radio"><input type="radio" name="decoration" id="decoration2" data-index="7" value="1"></div>
                         <label for="decoration2" class="label">½ cup Raspberries</label>
                         <div class="clear"></div>
                         <button type="button" id="customlanding8" class="custom" value="7">CUSTOM MIX</button>
@@ -114,7 +114,7 @@
                         <ul class="customlist" id="ul8"></ul>
                     </li>
                 </ul>
-                <button type="submit" class="submit custom"><a href="finish.html">Submit</a></button>
+                <button type="submit" class="submit"><a>Submit</a></button>
             </h1>
         </div>
         <footer class="navbar">

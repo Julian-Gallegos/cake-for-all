@@ -146,6 +146,22 @@ p {
 
 .submit {
     margin-left: 100px;
+    background-color: rgb(245, 213, 153);
+    color: black;
+    box-shadow: 0 5px rgb(94, 71, 46);
+    border: none;
+    border-radius: 15px;
+    text-transform: capitalize;
+}
+
+.submit:hover {
+    background-color: rgb(216, 166, 75);
+    color: black;
+}
+
+.submit:active {
+    box-shadow: 0 3px rgba(0,0,0,.1);
+    transform: translateY(4px);
 }
 
 .radio {
