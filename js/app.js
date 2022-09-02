@@ -2,84 +2,84 @@
 // !TODO Refer to values when referencing radios that are clicked on, 
 // check backend list corresponding with value1 and dereference
 //  at index corresponding with value
-flourIngrediants = [
+flourIngredients = [
     [['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
     [['Rice Flour', '1 ⅓ Cup'], ['Tapioca Starch','1 Cup'], ['Baking Powder', '3 T.'], ['Sea Salt', '½ Tsp']]
 ];
 
-sweetenerIngrediants = [
+sweetenerIngredients = [
     [['Evaporated Cane Sugar', '1 Cup']],
     [['Allulose ', '1 ⅓ cup']]
 ];
 
-flavoringsIngrediants = [
+flavoringsIngredients = [
     [['Vanilla Extract', '1 T.']],
     [['Cardamom', '½ Tsp']]
 ];
 
-eggIngrediants = [
+eggIngredients = [
     [['Chicken Eggs', '3']],
     [['Applesauce', '¾']]
 ];
 
-dairyIngrediants = [
+dairyIngredients = [
     [['Whole Cowmilk', '¾ Cup']],
     [['Hazelnut Milk', '¾ Cup'], ['Apple Cider Vinegar', '2 T.']]
 ];
 
-shorteningIngrediants = [
+shorteningIngredients = [
     [['Softened Butter', '1 Cup']],
     [['Softened Vegan Buttery Spread (Pressed, No Trans Fatty Acid)', '1 Cup']]
 ];
 
-whippedIngrediants = [
+whippedIngredients = [
     [['Whipping Cream (Heavy Cream) Chilled', '2 Cups'], ['Evaporated Cane Sugar', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']],
     [['Coconut Cream (Chilled Overnight)', '2-3 Cans'], ['Confectioner\'s Sugar (Optional)', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']]
 ];
 
-decorationIngrediants = [
+decorationIngredients = [
     [['Strawberries Sliced', '½ Cup']],
     [['Raspberries', '½ Cup']]
 ];
 
 /*
     Order: FLour Mix, Sweetener, Flavorings, Eggs, Dairy, Shortening, Whippped Topping, Decorations
-    Suborder: unordered pairs of ingrediants and amounts
-    Pairs Order: [Ingrediant, Amount]
+    Suborder: unordered pairs of Ingredients and amounts
+    Pairs Order: [Ingredient, Amount]
 */
 finishedRecipes = [ 
     [
-        [flourIngrediants[0]],
-        [sweetenerIngrediants[0]],
-        [flavoringsIngrediants[0]],
-        [eggIngrediants[0]],
-        [dairyIngrediants[0]],
-        [shorteningIngrediants[0]],
-        [whippedIngrediants[0]],
-        [decorationIngrediants[0]]
+        [flourIngredients[0]],
+        [sweetenerIngredients[0]],
+        [flavoringsIngredients[0]],
+        [eggIngredients[0]],
+        [dairyIngredients[0]],
+        [shorteningIngredients[0]],
+        [whippedIngredients[0]],
+        [decorationIngredients[0]]
     ],
     [
-        [flourIngrediants[1]],
-        [sweetenerIngrediants[1]],
-        [flavoringsIngrediants[1]],
-        [eggIngrediants[1]],
-        [dairyIngrediants[1]],
-        [shorteningIngrediants[1]],
-        [whippedIngrediants[1]],
-        [decorationIngrediants[1]]
+        [flourIngredients[1]],
+        [sweetenerIngredients[1]],
+        [flavoringsIngredients[1]],
+        [eggIngredients[1]],
+        [dairyIngredients[1]],
+        [shorteningIngredients[1]],
+        [whippedIngredients[1]],
+        [decorationIngredients[1]]
     ]
 ]
 
 let customButtonClicked = [0,0,0,0,0,0,0,0] // 0 = custom forms closed, 1 = open
 let customFormSizes = [0,0,0,0,0,0,0,0]
 // Event Listeners
-if (document.URL.includes("ingrediants.html")) {
+if (document.URL.includes("ingredients.html")) {
     let customs = document.querySelectorAll('.custom');
     for (let i = 0; i < customs.length; i++) {
         customs[i].addEventListener('click', handleClickCustom);
     }
 
-    document.querySelector('.submit.custom').addEventListener('click', handleSubmitIngrediants);
+    document.querySelector('.submit.custom').addEventListener('click', handleSubmitIngredients);
 }
 
 // Event Handlers
@@ -101,7 +101,7 @@ function handleClickCustom(e) {
         let li = document.createElement('li');
         li.innerHTML = `
             <form>
-                <input type="text" placeholder="Ingrediant ..." name="customInputIngrediant1">
+                <input type="text" placeholder="Ingredient ..." name="customInputIngredient1">
                 <input type="text" placeholder="Amount ..." name="customInputAmount1">
             </form>
         `;
@@ -147,7 +147,7 @@ function handleClickCustomAddRemoveOrSubmit(e) {
         }
         li.innerHTML = `
             <form>
-                <input type="text" placeholder="Ingrediant ..." name="customInputIngrediant` + customFormSizes[indexNum] + `">
+                <input type="text" placeholder="Ingredient ..." name="customInputIngredient` + customFormSizes[indexNum] + `">
                 <input type="text" placeholder="Amount ..." name="customInputAmount` + customFormSizes[indexNum] + `">
             </form>
         `;
@@ -166,7 +166,7 @@ function handleClickCustomAddRemoveOrSubmit(e) {
     }
 }
 
-function handleSubmitIngrediants() {
+function handleSubmitIngredients() {
 
 }
 
