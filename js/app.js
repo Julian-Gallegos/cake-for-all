@@ -4,12 +4,9 @@
 *
 *
 *   TODO List
-*   TODO: Track Radio checks and generate ingredient list on finish.html
-*         -  Refer to values when referencing radios that are clicked on, 
-*            check backend list corresponding with value1 and dereference
-*            at index corresponding with value
-*         -  eventlistener at end of page submit button onclick
-*         -  radios have a "checked" property, look for it online
+*   TODO: Generate ingredient list on finish.html using finishedRecipes (which stores user ingredient options)
+*         - use localStorage get method with key='recipes' to update list and key='targetrecipe' to get target index
+*           of recipe in finishedRecipes
 *   TODO: Include buttons to remove and edit custom radio listings, and make sure those remove
 *         or edit the localStorage listings too (which means the variable arrays)
 *   TODO: Remove all current listings on ingredients.html (except <p> 
@@ -65,9 +62,10 @@ decorationIngredients = [
 let referenceArray = [flourIngredients,sweetenerIngredients,flavoringsIngredients,eggIngredients,dairyIngredients,shorteningIngredients,whippedIngredients,decorationIngredients];
 
 /*
-    Order: FLour Mix, Sweetener, Flavorings, Eggs, Dairy, Shortening, Whippped Topping, Decorations
+    Order: FLour Mix, Sweetener, Flavorings, Eggs, Dairy, Shortening, Whippped Topping, Decorations, Recipe Name
     Suborder: unordered pairs of Ingredients and amounts
     Pairs Order: [Ingredient, Amount]
+    Last element is a string name for the recipe
 */
 finishedRecipes = [ 
     [
@@ -78,7 +76,8 @@ finishedRecipes = [
         dairyIngredients[0],
         shorteningIngredients[0],
         whippedIngredients[0],
-        decorationIngredients[0]
+        decorationIngredients[0],
+        'Default'
     ],
     [
         [flourIngredients[1]],
@@ -88,7 +87,8 @@ finishedRecipes = [
         [dairyIngredients[1]],
         [shorteningIngredients[1]],
         [whippedIngredients[1]],
-        [decorationIngredients[1]]
+        [decorationIngredients[1]],
+        'Alternative'
     ]
 ]
 
@@ -197,7 +197,7 @@ function handleClickCustomAddRemoveOrSubmit(e) {
         }
         referenceArray[indexNum].push(ingredientMix);
 
-        store(shortListNames[indexNum],referenceArray[indexNum]);
+        store(shortListNames[indexNum],referenceArray[indexNum]); // Save the new ingredients list.
 
         let div = document.createElement('div');
         div.classList.add('radio');
@@ -247,18 +247,26 @@ function handleSubmitIngredients() {
     let checkcount = 0;
     for (const radioButton of radioButtons) {
         if(radioButton.checked) {
-            //let value = document.querySelector('label[for='+radioButton.id+']').innerText;
             let index = radioButton.getAttribute('data-index');
             recipe.push(referenceArray[index].at(radioButton.value));
             checkcount++;
         }
     }
-    if (checkcount < 8) { // Not all ingredients have been selected
+    let recipename = document.getElementById('recipename').value;
+    if (recipename == '' && checkcount < 8) { // Not all ingredients have been selected, and a recipe name hasn't been filled.
+        window.alert("You must select one of each ingredient and give the recipe a name!");
+        return;
+    } else if (checkcount < 8) { // Not all ingredients have been selected
         window.alert("You must select one of each ingredient!");
         return;
+    } else if (recipename == '') { // A recipe name has not been filled
+        window.alert("You must give the recipe a name!");
+        return;
     }
+    recipe.push(recipename);
     finishedRecipes.push(recipe);
     store('recipes',finishedRecipes);
+    localStorage.setItem('targetrecipe', finishedRecipes.length-1);
     document.location.href = "finish.html";
 }
 
@@ -272,21 +280,21 @@ function retrieve(key){
     return value;
 }
 //on start
-(function(){
-    let test = localStorage.getItem('flour'); // TODO: MAKE THIS BETTER
-    if (test) {
-        if (document.URL.includes("index.html")) {
+if (document.URL.includes('index.html')) {
+    (function(){
+        let test = localStorage.getItem('recipes');
+        if (test) {
             let h2 = document.createElement('h2');
             let body = document.querySelector('body');
             h2.innerHTML = 'Welcome back!';
             h2.className = 'index';
             body.appendChild(h2);
+        } else {
+            let h2 = document.createElement('h2');
+            let body = document.querySelector('body');
+            h2.innerHTML = 'Make your first cake!';
+            h2.className = 'index';
+            body.appendChild(h2);
         }
-    } else if (document.URL.includes("index.html")) {
-        let h2 = document.createElement('h2');
-        let body = document.querySelector('body');
-        h2.innerHTML = 'Make your first cake!';
-        h2.className = 'index';
-        body.appendChild(h2);
-    }
-})();
+    })();
+}

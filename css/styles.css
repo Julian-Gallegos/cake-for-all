@@ -145,13 +145,15 @@ p {
 }
 
 .submit {
-    margin-left: 100px;
+    position: relative;
+    left: 47%;
     background-color: rgb(245, 213, 153);
     color: black;
     box-shadow: 0 5px rgb(94, 71, 46);
     border: none;
     border-radius: 15px;
     text-transform: capitalize;
+    font-size: 20px;
 }
 
 .submit:hover {
@@ -162,6 +164,16 @@ p {
 .submit:active {
     box-shadow: 0 3px rgba(0,0,0,.1);
     transform: translateY(4px);
+}
+
+.recipe-name-form {
+    position: relative;
+    margin-left: 80px;
+    top: 20px;
+}
+
+#recipename {
+    margin-left: 80px;
 }
 
 .radio {
