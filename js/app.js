@@ -8,7 +8,8 @@
 *         - use localStorage get method with key='recipes' to update list and key='targetrecipe' to get target index
 *           of recipe in finishedRecipes
 *   TODO: Include buttons to remove and edit custom radio listings, and make sure those remove
-*         or edit the localStorage listings too (which means the variable arrays)
+*         or edit the localStorage listings too (which means the variable arrays).
+*         Also do the same if implementing the recipes page down the line.
 *   TODO: Remove all current listings on ingredients.html (except <p> 
 *         and the stuff relating to customs)
 *         and have the backend ingredient lists like flourIngredients
@@ -266,7 +267,7 @@ function handleSubmitIngredients() {
     recipe.push(recipename);
     finishedRecipes.push(recipe);
     store('recipes',finishedRecipes);
-    localStorage.setItem('targetrecipe', finishedRecipes.length-1);
+    localStorage.store('targetrecipe', finishedRecipes.length-1);
     document.location.href = "finish.html";
 }
 
@@ -295,6 +296,22 @@ if (document.URL.includes('index.html')) {
             h2.innerHTML = 'Make your first cake!';
             h2.className = 'index';
             body.appendChild(h2);
+        }
+    })();
+}
+if (document.URL.includes('finish.html')) {
+    (function(){
+        let recipes = retrieve('recipes');
+        let target = retrieve('targetrecipe');
+        let recipe = recipes[Number(target)];
+        for (let i = 0; i < recipe.length-1; i++) { // length-1 because we don't need the last index (recipe name)
+            let text = recipe[i][0][1]+' '+recipe[i][0][0];
+            for (let j = 1; j < recipe[i].length; j++) {
+                text += ' + '+recipe[i][j][1]+' '+recipe[i][j][0];
+            }
+            let li = document.createElement('li');
+            li.innerText = 'o	'+text;
+            document.getElementById('mix'+i).insertAdjacentElement('afterend',li);
         }
     })();
 }

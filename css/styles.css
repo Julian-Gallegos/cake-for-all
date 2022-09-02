@@ -100,7 +100,7 @@ h2[class=index] {
     font-family: 'Kurale';
     font-size: 180%;
 }
-h2[class=instructions] {
+.instructions {
     white-space: pre-wrap;
     display: flex;
     font-size: 110%;
@@ -108,6 +108,11 @@ h2[class=instructions] {
     padding-left: 10%;
     padding-right: 10%;
     overflow-anchor: auto;
+}
+
+#finishedIngredients {
+    text-indent: -50px;
+    font-size: smaller;
 }
 
 ul {
