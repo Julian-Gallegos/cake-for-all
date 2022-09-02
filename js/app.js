@@ -244,12 +244,18 @@ function handleClickCustomAddRemoveOrSubmit(e) {
 function handleSubmitIngredients() {
     let radioButtons = document.querySelectorAll('input[type=radio]');
     let recipe = [];
+    let checkcount = 0;
     for (const radioButton of radioButtons) {
         if(radioButton.checked) {
             //let value = document.querySelector('label[for='+radioButton.id+']').innerText;
             let index = radioButton.getAttribute('data-index');
             recipe.push(referenceArray[index].at(radioButton.value));
+            checkcount++;
         }
+    }
+    if (checkcount < 8) { // Not all ingredients have been selected
+        window.alert("You must select one of each ingredient!");
+        return;
     }
     finishedRecipes.push(recipe);
     store('recipes',finishedRecipes);
