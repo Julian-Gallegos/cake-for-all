@@ -58,6 +58,46 @@ decorationIngredients = [
     [['Raspberries', '½ Cup']]
 ];
 
+flourIngredientsBase = [
+    [['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
+    [['Rice Flour', '1 ⅓ Cup'], ['Tapioca Starch','1 Cup'], ['Baking Powder', '3 T.'], ['Sea Salt', '½ Tsp']]
+];
+
+sweetenerIngredientsBase = [
+    [['Evaporated Cane Sugar', '1 Cup']],
+    [['Allulose ', '1 ⅓ cup']]
+];
+
+flavoringsIngredientsBase = [
+    [['Vanilla Extract', '1 T.']],
+    [['Cardamom', '½ Tsp']]
+];
+
+eggIngredientsBase = [
+    [['Chicken Eggs', '3']],
+    [['Applesauce', '¾']]
+];
+
+dairyIngredientsBase = [
+    [['Whole Cowmilk', '¾ Cup']],
+    [['Hazelnut Milk', '¾ Cup'], ['Apple Cider Vinegar', '2 T.']]
+];
+
+shorteningIngredientsBase = [
+    [['Softened Butter', '1 Cup']],
+    [['Softened Vegan Buttery Spread (Pressed, No Trans Fatty Acid)', '1 Cup']]
+];
+
+whippedIngredientsBase = [
+    [['Whipping Cream (Heavy Cream) Chilled', '2 Cups'], ['Evaporated Cane Sugar', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']],
+    [['Coconut Cream (Chilled Overnight)', '2-3 Cans'], ['Confectioner\'s Sugar (Optional)', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']]
+];
+
+decorationIngredientsBase = [
+    [['Strawberries Sliced', '½ Cup']],
+    [['Raspberries', '½ Cup']]
+];
+
 // Indices are important for array references when adding new ingredients, and this is easier to read than a 4D array would be
 // I really hope this stores the array references and does not copy all of the arrays contents
 let referenceArray = [flourIngredients,sweetenerIngredients,flavoringsIngredients,eggIngredients,dairyIngredients,shorteningIngredients,whippedIngredients,decorationIngredients];
@@ -186,6 +226,7 @@ function handleClickCustomAddRemoveOrSubmit(e) {
             e.target.remove();
         }
     } else { // If Submit Mix Clicked
+        //TODO:
         let ul = document.getElementById('ul'+(indexNum+1));
         let ingredientMix = [];
         for (let i = 0; i < ul.children.length; i++) {
@@ -212,7 +253,6 @@ function handleClickCustomAddRemoveOrSubmit(e) {
         label.classList.add('label');
         let inner = ingredientMix[0][1]+' '+ingredientMix[0][0];
         if (ingredientMix.length > 1) {
-            console.log('ping');
             for (let i = 1; i < ingredientMix.length; i++) {
                 inner = inner.concat(' + '+ingredientMix[i][1]+' '+ingredientMix[i][0]);
             }
@@ -227,7 +267,7 @@ function handleClickCustomAddRemoveOrSubmit(e) {
         customlanding.insertAdjacentElement('beforebegin', label);
         customlanding.insertAdjacentElement('beforebegin', clear);
 
-        // Close custom ingredient forms (should turn this into helper)
+        // Close custom ingredient forms
         document.getElementById('ul'+(indexNum+1)).innerHTML = '';
         document.querySelector('[value="addcustom'+(indexNum+1)+'"]').remove();
         document.querySelector('[value="submitcustom'+(indexNum+1)+'"]').remove();
@@ -299,7 +339,40 @@ if (document.URL.includes('index.html') || document.URL == 'https://julian-galle
         }
     })();
 } else if (document.URL.includes('ingredients.html')) {
-    
+    for (let i = 0; i < referenceArray.length; i++) {
+        let ingredientList = retrieve(shortListNames[i])
+        if (ingredientList) {
+            referenceArray[i] = ingredientList;
+            for (let j = 2; j < referenceArray[i].length; j++) {
+                let ingredientMix = referenceArray[i].at(j);
+                let div = document.createElement('div');
+                div.classList.add('radio');
+                let id = shortListNames[i] + j;
+                div.innerHTML = `
+                    <input type="radio" name="`+shortListNames[i]+`" id="`+id+`" data-index="`+i+`" value="`+j+`">
+                `;
+                
+                let label = document.createElement('label');
+                label.htmlFor = id;
+                label.classList.add('label');
+                let inner = ingredientMix[0][1]+' '+ingredientMix[0][0];
+                if (ingredientMix.length > 1) {
+                    for (let k = 1; k < ingredientMix.length; k++) {
+                        inner = inner.concat(' + '+ingredientMix[k][1]+' '+ingredientMix[k][0]);
+                    }
+                }
+                label.innerText = inner;
+
+                let clear = document.createElement('div');
+                clear.classList.add('clear');
+
+                let customlanding = document.getElementById('customlanding'+(i+1));
+                customlanding.insertAdjacentElement('beforebegin', div);
+                customlanding.insertAdjacentElement('beforebegin', label);
+                customlanding.insertAdjacentElement('beforebegin', clear);
+            }
+        }
+    }
 } else if (document.URL.includes('finish.html')) {
     (function(){
         let recipes = retrieve('recipes');
