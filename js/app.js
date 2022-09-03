@@ -281,25 +281,26 @@ function retrieve(key){
     return value;
 }
 //on start
-if (document.URL.includes('index.html')) {
+if (document.URL.includes('index.html') || document.URL == 'https://julian-gallegos.github.io/vanilla-js-cake-maker/') {
     (function(){
         let test = localStorage.getItem('recipes');
         if (test) {
             let h2 = document.createElement('h2');
             let body = document.querySelector('body');
-            h2.innerHTML = 'Welcome back!';
+            h2.innerText = 'Welcome back!';
             h2.className = 'index';
             body.appendChild(h2);
         } else {
             let h2 = document.createElement('h2');
             let body = document.querySelector('body');
-            h2.innerHTML = 'Make your first cake!';
+            h2.innerText = 'Make your first cake!';
             h2.className = 'index';
             body.appendChild(h2);
         }
     })();
-}
-if (document.URL.includes('finish.html')) {
+} else if (document.URL.includes('ingredients.html')) {
+    
+} else if (document.URL.includes('finish.html')) {
     (function(){
         let recipes = retrieve('recipes');
         let target = retrieve('targetrecipe');
