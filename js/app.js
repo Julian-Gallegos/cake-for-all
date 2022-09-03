@@ -267,7 +267,7 @@ function handleSubmitIngredients() {
     recipe.push(recipename);
     finishedRecipes.push(recipe);
     store('recipes',finishedRecipes);
-    localStorage.store('targetrecipe', finishedRecipes.length-1);
+    store('targetrecipe', finishedRecipes.length-1);
     document.location.href = "finish.html";
 }
 
