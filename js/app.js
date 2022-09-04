@@ -228,7 +228,6 @@ function handleClickCustomAddRemoveOrSubmit(e) {
             e.target.remove();
         }
     } else { // If Submit Mix Clicked
-        //TODO:
         let ul = document.getElementById('ul'+(indexNum+1));
         let ingredientMix = [];
         for (let i = 0; i < ul.children.length; i++) {
@@ -247,8 +246,6 @@ function handleClickCustomAddRemoveOrSubmit(e) {
         div.classList.add('radio');
         let id = shortListNames[indexNum] + referenceArray[indexNum].length;
         div.innerHTML = `<input type="radio" name="`+shortListNames[indexNum]+`" id="`+id+`" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">`;
-        div.innerHTML += `<button type="button" class="delete-radio" data-ingredient="`+shortListNames[indexNum]+referenceArray[indexNum].length+`" data-index="`+indexNum+`" value="`+(referemceArray[indexNum].length-1)+`"></button>`;
-        div.innerHTML += `<button type="button" class="edit-radio" data-ingredient="`+shortListNames[indexNum]+referenceArray[indexNum].length+`" data-index="`+indexNum+`" value="`+(referemceArray[indexNum].length-1)+`"></button>`;
         let label = document.createElement('label');
         label.htmlFor = id;
         label.classList.add('label');
@@ -259,6 +256,10 @@ function handleClickCustomAddRemoveOrSubmit(e) {
             }
         }
         label.innerText = inner;
+        let deleteRadio = createElementFromHTML(`<button type="button" class="delete-radio" data-ingredient="`+shortListNames[indexNum]+referenceArray[indexNum].length+`" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">DELETE</button>`);
+        let editRadio = createElementFromHTML(`<button type="button" class="edit-radio" data-ingredient="`+shortListNames[indexNum]+referenceArray[indexNum].length+`" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">EDIT</button>`);
+        deleteRadio.addEventListener('click', handleDeleteRadio);
+        deleteRadio.addEventListener('click', handleEditRadio);
 
         let clear = document.createElement('div');
         clear.classList.add('clear');
@@ -266,6 +267,8 @@ function handleClickCustomAddRemoveOrSubmit(e) {
         let customlanding = document.getElementById('customlanding'+(indexNum+1));
         customlanding.insertAdjacentElement('beforebegin', div);
         customlanding.insertAdjacentElement('beforebegin', label);
+        customlanding.insertAdjacentElement('beforebegin', editRadio);
+        customlanding.insertAdjacentElement('beforebegin', deleteRadio);
         customlanding.insertAdjacentElement('beforebegin', clear);
 
         // Close custom ingredient forms
@@ -283,7 +286,15 @@ function handleClickCustomAddRemoveOrSubmit(e) {
     }
 }
 
-function handleSubmitIngredients() {
+function handleDeleteRadio(e) { //TODO:
+
+}
+
+function handleEditRadio(e) { //TODO:
+
+}
+
+function handleSubmitIngredients() { //TODO: should alert user when they are about to overwrite a previously saved recipe
     let radioButtons = document.querySelectorAll('input[type=radio]');
     let recipe = [];
     let checkcount = 0;
@@ -295,6 +306,10 @@ function handleSubmitIngredients() {
         }
     }
     let recipename = document.getElementById('recipename').value;
+    if (recipename == 'Default' || recipename == 'Alternative') {
+        window.alert("This recipe name is reserved. Write a different one!")
+        return;
+    }
     if (recipename == '' && checkcount < 8) { // Not all ingredients have been selected, and a recipe name hasn't been filled.
         window.alert("You must select one of each ingredient and give the recipe a name!");
         return;
@@ -321,6 +336,12 @@ function retrieve(key){
     let value = JSON.parse(localStorage.getItem(key));
     return value;
 }
+function createElementFromHTML(HTML) {
+    let div = document.createElement('div');
+    div.innerHTML = HTML;
+    return [...div.childNodes].find(e => e.nodeType !== Node.TEXT_NODE);
+}
+
 //on start
 if (document.URL.includes('index.html') || document.URL == 'https://julian-gallegos.github.io/vanilla-js-cake-maker/') {
     (function(){
@@ -363,6 +384,11 @@ if (document.URL.includes('index.html') || document.URL == 'https://julian-galle
                     }
                 }
                 label.innerText = inner;
+                
+                let deleteRadio = createElementFromHTML(`<button type="button" class="delete-radio" data-ingredient="`+shortListNames[i]+j+`" data-index="`+i+`" value="`+(j-1)+`">DELETE</button>`);
+                let editRadio = createElementFromHTML(`<button type="button" class="edit-radio" data-ingredient="`+shortListNames[i]+j+`" data-index="`+i+`" value="`+(j-1)+`">EDIT</button>`);
+                deleteRadio.addEventListener('click', handleDeleteRadio);
+                deleteRadio.addEventListener('click', handleEditRadio);
 
                 let clear = document.createElement('div');
                 clear.classList.add('clear');
@@ -370,6 +396,8 @@ if (document.URL.includes('index.html') || document.URL == 'https://julian-galle
                 let customlanding = document.getElementById('customlanding'+(i+1));
                 customlanding.insertAdjacentElement('beforebegin', div);
                 customlanding.insertAdjacentElement('beforebegin', label);
+                customlanding.insertAdjacentElement('beforebegin', editRadio);
+                customlanding.insertAdjacentElement('beforebegin', deleteRadio);
                 customlanding.insertAdjacentElement('beforebegin', clear);
             }
         }
@@ -377,7 +405,6 @@ if (document.URL.includes('index.html') || document.URL == 'https://julian-galle
 } else if (document.URL.includes('finish.html')) {
     (function(){
         let recipes = new Map(retrieve('recipes'));
-        console.log(recipes);
         let target = retrieve('targetrecipe');
         let recipe = recipes.get(target);
         for (let i = 0; i < recipe.length-1; i++) { // length-1 because we don't need the last index (recipe name)
