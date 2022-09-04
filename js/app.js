@@ -18,89 +18,89 @@
 */
 
 // Variables
-flourIngredients = [
-    [['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
+const flourIngredients = [
+[['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
     [['Rice Flour', '1 ⅓ Cup'], ['Tapioca Starch','1 Cup'], ['Baking Powder', '3 T.'], ['Sea Salt', '½ Tsp']]
 ];
 
-sweetenerIngredients = [
+const sweetenerIngredients = [
     [['Evaporated Cane Sugar', '1 Cup']],
     [['Allulose ', '1 ⅓ cup']]
 ];
 
-flavoringsIngredients = [
+const flavoringsIngredients = [
     [['Vanilla Extract', '1 T.']],
     [['Cardamom', '½ Tsp']]
 ];
 
-eggIngredients = [
+const eggIngredients = [
     [['Chicken Eggs', '3']],
     [['Applesauce', '¾']]
 ];
 
-dairyIngredients = [
+const dairyIngredients = [
     [['Whole Cowmilk', '¾ Cup']],
     [['Hazelnut Milk', '¾ Cup'], ['Apple Cider Vinegar', '2 T.']]
 ];
 
-shorteningIngredients = [
+const shorteningIngredients = [
     [['Softened Butter', '1 Cup']],
     [['Softened Vegan Buttery Spread (Pressed, No Trans Fatty Acid)', '1 Cup']]
 ];
 
-whippedIngredients = [
+const whippedIngredients = [
     [['Whipping Cream (Heavy Cream) Chilled', '2 Cups'], ['Evaporated Cane Sugar', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']],
     [['Coconut Cream (Chilled Overnight)', '2-3 Cans'], ['Confectioner\'s Sugar (Optional)', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']]
 ];
 
-decorationIngredients = [
+const decorationIngredients = [
     [['Strawberries Sliced', '½ Cup']],
     [['Raspberries', '½ Cup']]
 ];
 
-flourIngredientsBase = [
+const flourIngredientsBase = [
     [['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
     [['Rice Flour', '1 ⅓ Cup'], ['Tapioca Starch','1 Cup'], ['Baking Powder', '3 T.'], ['Sea Salt', '½ Tsp']]
 ];
 
-sweetenerIngredientsBase = [
+const sweetenerIngredientsBase = [
     [['Evaporated Cane Sugar', '1 Cup']],
     [['Allulose ', '1 ⅓ cup']]
 ];
 
-flavoringsIngredientsBase = [
+const flavoringsIngredientsBase = [
     [['Vanilla Extract', '1 T.']],
     [['Cardamom', '½ Tsp']]
 ];
 
-eggIngredientsBase = [
+const eggIngredientsBase = [
     [['Chicken Eggs', '3']],
     [['Applesauce', '¾']]
 ];
 
-dairyIngredientsBase = [
+const dairyIngredientsBase = [
     [['Whole Cowmilk', '¾ Cup']],
     [['Hazelnut Milk', '¾ Cup'], ['Apple Cider Vinegar', '2 T.']]
 ];
 
-shorteningIngredientsBase = [
+const shorteningIngredientsBase = [
     [['Softened Butter', '1 Cup']],
     [['Softened Vegan Buttery Spread (Pressed, No Trans Fatty Acid)', '1 Cup']]
 ];
 
-whippedIngredientsBase = [
+const whippedIngredientsBase = [
     [['Whipping Cream (Heavy Cream) Chilled', '2 Cups'], ['Evaporated Cane Sugar', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']],
     [['Coconut Cream (Chilled Overnight)', '2-3 Cans'], ['Confectioner\'s Sugar (Optional)', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']]
 ];
 
-decorationIngredientsBase = [
+const decorationIngredientsBase = [
     [['Strawberries Sliced', '½ Cup']],
     [['Raspberries', '½ Cup']]
 ];
 
 // Indices are important for array references when adding new ingredients, and this is easier to read than a 4D array would be
 // I really hope this stores the array references and does not copy all of the arrays contents
-let referenceArray = [flourIngredients,sweetenerIngredients,flavoringsIngredients,eggIngredients,dairyIngredients,shorteningIngredients,whippedIngredients,decorationIngredients];
+const referenceArray = [flourIngredients,sweetenerIngredients,flavoringsIngredients,eggIngredients,dairyIngredients,shorteningIngredients,whippedIngredients,decorationIngredients];
 
 /*
     Order: FLour Mix, Sweetener, Flavorings, Eggs, Dairy, Shortening, Whippped Topping, Decorations, Recipe Name
@@ -108,7 +108,8 @@ let referenceArray = [flourIngredients,sweetenerIngredients,flavoringsIngredient
     Pairs Order: [Ingredient, Amount]
     Last element is a string name for the recipe
 */
-finishedRecipes = [ 
+const finishedRecipes = new Map([
+    ["Default",
     [
         flourIngredients[0],
         sweetenerIngredients[0],
@@ -117,9 +118,9 @@ finishedRecipes = [
         dairyIngredients[0],
         shorteningIngredients[0],
         whippedIngredients[0],
-        decorationIngredients[0],
-        'Default'
-    ],
+        decorationIngredients[0]
+    ]],
+    ["Alternative",
     [
         [flourIngredients[1]],
         [sweetenerIngredients[1]],
@@ -129,9 +130,10 @@ finishedRecipes = [
         [shorteningIngredients[1]],
         [whippedIngredients[1]],
         [decorationIngredients[1]],
-        'Alternative'
     ]
-]
+    ]
+
+]); 
 
 let customButtonClicked = [0,0,0,0,0,0,0,0] // 0 = custom forms closed, 1 = open, for each custom mix form, probably redundant
 let customFormSizes = [0,0,0,0,0,0,0,0] // number of form rows opened by Add to Mix button, for each custom mix
@@ -244,10 +246,9 @@ function handleClickCustomAddRemoveOrSubmit(e) {
         let div = document.createElement('div');
         div.classList.add('radio');
         let id = shortListNames[indexNum] + referenceArray[indexNum].length;
-        div.innerHTML = `
-            <input type="radio" name="`+shortListNames[indexNum]+`" id="`+id+`" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">
-        `;
-        
+        div.innerHTML = `<input type="radio" name="`+shortListNames[indexNum]+`" id="`+id+`" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">`;
+        div.innerHTML += `<button type="button" class="delete-radio" data-ingredient="`+shortListNames[indexNum]+referenceArray[indexNum].length+`" data-index="`+indexNum+`" value="`+(referemceArray[indexNum].length-1)+`"></button>`;
+        div.innerHTML += `<button type="button" class="edit-radio" data-ingredient="`+shortListNames[indexNum]+referenceArray[indexNum].length+`" data-index="`+indexNum+`" value="`+(referemceArray[indexNum].length-1)+`"></button>`;
         let label = document.createElement('label');
         label.htmlFor = id;
         label.classList.add('label');
@@ -304,10 +305,10 @@ function handleSubmitIngredients() {
         window.alert("You must give the recipe a name!");
         return;
     }
-    recipe.push(recipename);
-    finishedRecipes.push(recipe);
-    store('recipes',finishedRecipes);
-    store('targetrecipe', finishedRecipes.length-1);
+
+    finishedRecipes.set(recipename, recipe);
+    store('recipes',Array.from(finishedRecipes.entries()));
+    store('targetrecipe', recipename);
     document.location.href = "finish.html";
 }
 
@@ -375,9 +376,10 @@ if (document.URL.includes('index.html') || document.URL == 'https://julian-galle
     }
 } else if (document.URL.includes('finish.html')) {
     (function(){
-        let recipes = retrieve('recipes');
+        let recipes = new Map(retrieve('recipes'));
+        console.log(recipes);
         let target = retrieve('targetrecipe');
-        let recipe = recipes[Number(target)];
+        let recipe = recipes.get(target);
         for (let i = 0; i < recipe.length-1; i++) { // length-1 because we don't need the last index (recipe name)
             let text = recipe[i][0][1]+' '+recipe[i][0][0];
             for (let j = 1; j < recipe[i].length; j++) {
