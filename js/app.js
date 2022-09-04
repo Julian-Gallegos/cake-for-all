@@ -238,13 +238,20 @@ function handleClickCustomAddRemoveOrSubmit(e) {
             }
             ingredientMix[i] = [ingredient, amount];
         }
-        referenceArray[indexNum].push(ingredientMix);
-
-        store(shortListNames[indexNum],referenceArray[indexNum]); // Save the new ingredients list.
-
+        
+        let ingredientArray = retrieve(shortListNames[indexNum]);
+        if (ingredientArray) { //If custom ingredients have been added before, and stored with localStorage
+            ingredientArray.push(ingredientMix);
+            store(shortListNames[indexNum],ingredientArray); // Save the new ingredients list.
+        } else {
+            referenceArray[indexNum].push(ingredientMix); // Grab base ingredient list and push new ingredient
+            store(shortListNames[indexNum],referenceArray[indexNum]);
+        }
+        
         let div = document.createElement('div');
         div.classList.add('radio');
-        let id = shortListNames[indexNum] + referenceArray[indexNum].length;
+        let id = shortListNames[indexNum] + referenceArray[indexNum].length
+        console.log(referenceArray[indexNum]);
         div.innerHTML = `<input type="radio" name="`+shortListNames[indexNum]+`" id="`+id+`" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">`;
         let label = document.createElement('label');
         label.htmlFor = id;
@@ -256,13 +263,12 @@ function handleClickCustomAddRemoveOrSubmit(e) {
             }
         }
         label.innerText = inner;
-        let deleteRadio = createElementFromHTML(`<button type="button" class="delete-radio" data-ingredient="`+shortListNames[indexNum]+referenceArray[indexNum].length+`" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">DELETE</button>`);
-        let editRadio = createElementFromHTML(`<button type="button" class="edit-radio" data-ingredient="`+shortListNames[indexNum]+referenceArray[indexNum].length+`" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">EDIT</button>`);
+        let deleteRadio = createElementFromHTML(`<button type="button" class="delete-radio" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">DELETE</button>`);
+        let editRadio = createElementFromHTML(`<button type="button" class="edit-radio" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">EDIT</button>`);
         deleteRadio.addEventListener('click', handleDeleteRadio);
         deleteRadio.addEventListener('click', handleEditRadio);
 
-        let clear = document.createElement('div');
-        clear.classList.add('clear');
+        let clear = createElementFromHTML('<div class="clear" data-selector-value="clear'+indexNum+'/'+(referenceArray[indexNum].length-1)+'"></div>');
 
         let customlanding = document.getElementById('customlanding'+(indexNum+1));
         customlanding.insertAdjacentElement('beforebegin', div);
@@ -287,11 +293,22 @@ function handleClickCustomAddRemoveOrSubmit(e) {
 }
 
 function handleDeleteRadio(e) { //TODO:
+    let index = e.target.getAttribute('data-index');
+    let ingredientIndex = e.target.getAttribute('value');
 
+    let ingredientArray = retrieve(shortListNames[index]);
+    ingredientArray.splice(ingredientIndex);
+    store(shortListNames[index], ingredientArray);
+    let radioDiv = document.querySelector('input[data-index="'+index+'"][value="'+ingredientIndex+'"]').parentNode.remove();
+    document.querySelector('label.label[for="'+shortListNames[index]+(Number(ingredientIndex)+1)+'"]').remove();
+    document.querySelector('button.delete-radio[data-index="'+index+'"][value="'+ingredientIndex+'"]').remove();
+    document.querySelector('button.edit-radio[data-index="'+index+'"][value="'+ingredientIndex+'"]').remove();
+    document.querySelector('div.clear[data-selector-value="clear'+index+'/'+ingredientIndex+'"]').remove();
 }
 
 function handleEditRadio(e) { //TODO:
-
+    let index = e.target.getAttribute('data-index');
+    let ingredientIndex = e.target.getAttribute('value');
 }
 
 function handleSubmitIngredients() { //TODO: should alert user when they are about to overwrite a previously saved recipe
@@ -369,7 +386,7 @@ if (document.URL.includes('index.html') || document.URL == 'https://julian-galle
                 let ingredientMix = referenceArray[i].at(j);
                 let div = document.createElement('div');
                 div.classList.add('radio');
-                let id = shortListNames[i] + j;
+                let id = shortListNames[i] + (j+1);
                 div.innerHTML = `
                     <input type="radio" name="`+shortListNames[i]+`" id="`+id+`" data-index="`+i+`" value="`+j+`">
                 `;
@@ -385,13 +402,12 @@ if (document.URL.includes('index.html') || document.URL == 'https://julian-galle
                 }
                 label.innerText = inner;
                 
-                let deleteRadio = createElementFromHTML(`<button type="button" class="delete-radio" data-ingredient="`+shortListNames[i]+j+`" data-index="`+i+`" value="`+(j-1)+`">DELETE</button>`);
-                let editRadio = createElementFromHTML(`<button type="button" class="edit-radio" data-ingredient="`+shortListNames[i]+j+`" data-index="`+i+`" value="`+(j-1)+`">EDIT</button>`);
+                let deleteRadio = createElementFromHTML(`<button type="button" class="delete-radio" data-index="`+i+`" value="`+j+`">DELETE</button>`);
+                let editRadio = createElementFromHTML(`<button type="button" class="edit-radio" data-index="`+i+`" value="`+j+`">EDIT</button>`);
                 deleteRadio.addEventListener('click', handleDeleteRadio);
                 deleteRadio.addEventListener('click', handleEditRadio);
 
-                let clear = document.createElement('div');
-                clear.classList.add('clear');
+                let clear = createElementFromHTML('<div class="clear" data-selector-value="clear'+i+'/'+(j)+'"></div>');
 
                 let customlanding = document.getElementById('customlanding'+(i+1));
                 customlanding.insertAdjacentElement('beforebegin', div);
