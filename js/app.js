@@ -135,9 +135,10 @@ const finishedRecipes = new Map([
 
 ]); 
 
-let customButtonClicked = [0,0,0,0,0,0,0,0] // 0 = custom forms closed, 1 = open, for each custom mix form, probably redundant
-let customFormSizes = [0,0,0,0,0,0,0,0] // number of form rows opened by Add to Mix button, for each custom mix
-let shortListNames = ['flour','sweetener','flavor','egg','dairy','shortening','whippped','decoration'];
+const customButtonClicked = [0,0,0,0,0,0,0,0]; // 0 = custom forms closed, 1 = open, for each custom mix form, probably redundant
+const editButtonClicked = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]; // Same as custom button, but also has to track multipe radio indices at each ingredient listing
+const customFormSizes = [[[],0],[[],0],[[],0],[[],0],[[],0],[[],0],[[],0],[[],0]]; // number of form rows opened by Add to Mix button, for each [edit mixlist,custommix]
+const shortListNames = ['flour','sweetener','flavor','egg','dairy','shortening','whippped','decoration'];
 // Event Listeners
 if (document.URL.includes("ingredients.html")) {
     let customs = document.querySelectorAll('.custom');
@@ -160,7 +161,7 @@ function handleClickCustom(e) {
             removeButton.remove();
         }
         customButtonClicked[indexNum] = 0;
-        customFormSizes[indexNum] = 0;
+        customFormSizes[indexNum][1] = 0;
         e.target.innerText = 'CUSTOM MIX';
     } else { // custom button form has not been opened yet
         let ul = document.getElementById('ul'+(indexNum+1));
@@ -172,8 +173,8 @@ function handleClickCustom(e) {
             </form>
         `;
         customButtonClicked[indexNum] = 1;
-        customFormSizes[indexNum] = 1;
-        li.classList.add('input' + indexNum + 'li' + customFormSizes[indexNum]);
+        customFormSizes[indexNum][1] = 1;
+        li.classList.add('input' + indexNum + 'li' + customFormSizes[indexNum][1]);
         ul.appendChild(li);
 
         let buttonAdd = document.createElement('button');
@@ -182,8 +183,8 @@ function handleClickCustom(e) {
         buttonSubmit.type = 'submit';
         buttonAdd.value = 'addcustom' + (indexNum+1);
         buttonSubmit.value = 'submitcustom' + (indexNum+1);
-        buttonAdd.index = ''+indexNum;
-        buttonSubmit.index = ''+indexNum;
+        buttonAdd.index = indexNum;
+        buttonSubmit.index = indexNum;
         buttonAdd.innerText = 'Add To Mix';
         buttonSubmit.innerText = 'Submit Mix';
         buttonAdd.classList.add('custombuttons');
@@ -200,29 +201,9 @@ function handleClickCustomAddRemoveOrSubmit(e) {
     let indexNum = Number(e.target.index);
     if (e.target.value == 'addcustom'+(indexNum+1)) { // If Add To Mix Clicked
         let ul = document.getElementById('ul'+(indexNum+1));
-        let li = document.createElement('li');
-        if (!document.querySelector('[value="removecustom'+(indexNum+1)+'"]')) { // If there is no Remove From Mix button
-            let buttonRemove = document.createElement('button');
-            buttonRemove.type = 'button';
-            buttonRemove.value = 'removecustom' + (indexNum+1);
-            buttonRemove.index = ''+indexNum;
-            buttonRemove.innerText = 'Remove From Mix';
-            buttonRemove.classList.add('custombuttons');
-            buttonRemove.addEventListener('click', handleClickCustomAddRemoveOrSubmit);
-            ul.insertAdjacentElement('afterend', buttonRemove);
-        }
-        li.innerHTML = `
-            <form>
-                <input type="text" placeholder="Ingredient ..." name="customInputIngredient` + customFormSizes[indexNum] + `">
-                <input type="text" placeholder="Amount ..." name="customInputAmount` + customFormSizes[indexNum] + `">
-            </form>
-        `;
-        customFormSizes[indexNum]++;
-        li.classList.add('input' + indexNum + 'li' + customFormSizes[indexNum]);
-        ul.appendChild(li);
+        addIngredientMix(ul,indexNum, null);
     } else if (e.target.value == 'removecustom'+(indexNum+1)) { // If Remove From Mix Clicked
-        console.log('.' + indexNum + 'li' + customFormSizes[indexNum]);
-        document.querySelector('.input' + indexNum + 'li' + customFormSizes[indexNum]).remove();
+        document.querySelector('.input' + indexNum + 'li' + customFormSizes[indexNum][1]).remove();
         customFormSizes[indexNum]--;
         if (customFormSizes[indexNum] == 1) {
             e.target.remove();
@@ -251,7 +232,6 @@ function handleClickCustomAddRemoveOrSubmit(e) {
         let div = document.createElement('div');
         div.classList.add('radio');
         let id = shortListNames[indexNum] + referenceArray[indexNum].length
-        console.log(referenceArray[indexNum]);
         div.innerHTML = `<input type="radio" name="`+shortListNames[indexNum]+`" id="`+id+`" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">`;
         let label = document.createElement('label');
         label.htmlFor = id;
@@ -264,9 +244,10 @@ function handleClickCustomAddRemoveOrSubmit(e) {
         }
         label.innerText = inner;
         let deleteRadio = createElementFromHTML(`<button type="button" class="delete-radio" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">DELETE</button>`);
-        let editRadio = createElementFromHTML(`<button type="button" class="edit-radio" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">EDIT</button>`);
+        let editRadio = createElementFromHTML(`<button type="button" class="edit-radio" id="edit`+indexNum+`/`+(referenceArray[indexNum].length-1)+`" data-index="`+indexNum+`" value="`+(referenceArray[indexNum].length-1)+`">EDIT</button>`);
+        editButtonClicked[indexNum].push(0); //set edit button status (not clicked)
         deleteRadio.addEventListener('click', handleDeleteRadio);
-        deleteRadio.addEventListener('click', handleEditRadio);
+        editRadio.addEventListener('click', handleEditRadio);
 
         let clear = createElementFromHTML('<div class="clear" data-selector-value="clear'+indexNum+'/'+(referenceArray[indexNum].length-1)+'"></div>');
 
@@ -286,32 +267,125 @@ function handleClickCustomAddRemoveOrSubmit(e) {
             removeButton.remove();
         }
         customButtonClicked[indexNum] = 0;
-        customFormSizes[indexNum] = 0;
+        customFormSizes[indexNum][1] = 0;
         customlanding.innerText = 'CUSTOM MIX';
 
     }
 }
 
-function handleDeleteRadio(e) { //TODO:
-    let index = e.target.getAttribute('data-index');
-    let ingredientIndex = e.target.getAttribute('value');
+function handleClickEditAddRemoveOrSubmit(e) {
+    let indexNum = Number(e.target.index);
+    let ingredientIndex = Number(e.target.ingredient);
+    if (e.target.id == 'add'+indexNum+'/'+ingredientIndex) { // If Add To Mix Clicked
+        let ul = document.getElementById('ul'+indexNum+'/'+ingredientIndex);
+        addIngredientMix(ul,indexNum, ingredientIndex);
+    } else if (e.target.id == 'removecustom'+(indexNum+1)+'/'+ingredientIndex) { // If Remove From Mix Clicked
+        document.getElementById('input'+indexNum + '/' + ingredientIndex + 'li' + customFormSizes[indexNum][0][ingredientIndex]).remove();
+        customFormSizes[indexNum][0][ingredientIndex]--;
+        if (customFormSizes[indexNum][0][ingredientIndex] <= 1) {
+            e.target.remove();
+        }
+    } else { // If Submit Mix Clicked
+        let ul = document.getElementById('ul'+indexNum+'/'+ingredientIndex);
+        let ingredientMix = [];
+        let i;
+        if (ul.children.length == 3) {
+            i = 2;
+        } else {
+            i = 3; 
+        }
+        for (i; i < ul.children.length; i++) {
+            let ingredient = ul.children[i].children[0].children[0].value; // ul->li[i]->form->input (ingredient)  i+3 as the first three elements are buttons
+            let amount = ul.children[i].children[0].children[1].value; // ul->li[i]->form->input (amount)
+            if (ingredient == '' || amount == '') { // if not all forms filled then do not save custom ingredient
+                return;
+            }
+            ingredientMix.push([ingredient, amount]);
+        }
+        
+        let ingredientArray = retrieve(shortListNames[indexNum]);
+        ingredientArray.splice(ingredientIndex,1,ingredientMix);
+        store(shortListNames[indexNum],ingredientArray); // Save the new ingredients list
+        
+        let label = document.querySelector('label.label[for="'+shortListNames[indexNum]+(ingredientIndex+1)+'"]');
+        let inner = ingredientMix[0][1]+' '+ingredientMix[0][0];
+        if (ingredientMix.length > 1) {
+            for (let i = 1; i < ingredientMix.length; i++) {
+                inner = inner.concat(' + '+ingredientMix[i][1]+' '+ingredientMix[i][0]);
+            }
+        }
+        label.innerText = inner;
 
+        // Close edit ingredient forms
+        ul.remove();
+        
+        editButtonClicked[indexNum][ingredientIndex] = 0;
+        customFormSizes[indexNum][0][ingredientIndex] = 0;
+        document.getElementById('edit'+indexNum+'/'+ingredientIndex).innerText = 'EDIT';
+
+    }
+}
+
+function handleDeleteRadio(e) { //TODO:
+    let index = Number(e.target.getAttribute('data-index'));
+    let ingredientIndex = Number(e.target.getAttribute('value'));
     let ingredientArray = retrieve(shortListNames[index]);
-    ingredientArray.splice(ingredientIndex);
+    ingredientArray.splice(ingredientIndex,1);
     store(shortListNames[index], ingredientArray);
     let radioDiv = document.querySelector('input[data-index="'+index+'"][value="'+ingredientIndex+'"]').parentNode.remove();
-    document.querySelector('label.label[for="'+shortListNames[index]+(Number(ingredientIndex)+1)+'"]').remove();
+    document.querySelector('label.label[for="'+shortListNames[index]+(ingredientIndex+1)+'"]').remove();
     document.querySelector('button.delete-radio[data-index="'+index+'"][value="'+ingredientIndex+'"]').remove();
     document.querySelector('button.edit-radio[data-index="'+index+'"][value="'+ingredientIndex+'"]').remove();
     document.querySelector('div.clear[data-selector-value="clear'+index+'/'+ingredientIndex+'"]').remove();
 }
 
 function handleEditRadio(e) { //TODO:
-    let index = e.target.getAttribute('data-index');
-    let ingredientIndex = e.target.getAttribute('value');
+    let index = Number(e.target.getAttribute('data-index'));
+    let ingredientIndex = Number(e.target.getAttribute('value'));
+    //let ingredientArray = retrieve(shortListNames[index]);
+
+    if (editButtonClicked[index][ingredientIndex]) { //If The edit form is already open
+        // Close edit ingredient forms
+        let ul = document.getElementById('ul'+indexNum+'/'+ingredientIndex);
+        ul.remove();
+        
+        editButtonClicked[indexNum][ingredientIndex] = 0;
+        customFormSizes[indexNum][0][ingredientIndex] = 0;
+        e.target.innerText = 'EDIT';
+    } else { // if the edit form has not been opened
+        let div = document.querySelector('div.clear[data-selector-value="clear'+index+'/'+ingredientIndex+'"]');
+        let ul = document.createElement('ul');
+        ul.id = 'ul'+index+'/'+ingredientIndex;
+        ul.classList.add('customlist');
+
+        addIngredientMix(ul,index,ingredientIndex);
+        console.log(ul);
+        let buttonAdd = document.createElement('button');
+        let buttonSubmit = document.createElement('button');
+        buttonAdd.type = 'button';
+        buttonSubmit.type = 'submit';
+        buttonAdd.value = 'addcustom' + (index+1);
+        buttonSubmit.value = 'submitcustom' + (index+1);
+        buttonAdd.index = index;
+        buttonSubmit.index = index;
+        buttonAdd.ingredient = ingredientIndex;
+        buttonSubmit.ingredient = ingredientIndex;
+        buttonAdd.id = 'add' + index + '/' + ingredientIndex;
+        buttonSubmit.id = 'submit' + index + '/' + ingredientIndex;
+        buttonAdd.innerText = 'Add To Mix';
+        buttonSubmit.innerText = 'Save Edit';
+        buttonAdd.classList.add('custombuttons');
+        buttonSubmit.classList.add('custombuttons');
+        buttonAdd.addEventListener('click', handleClickEditAddRemoveOrSubmit);
+        buttonSubmit.addEventListener('click', handleClickEditAddRemoveOrSubmit);
+        ul.insertAdjacentElement('afterbegin', buttonSubmit);
+        ul.insertAdjacentElement('afterbegin', buttonAdd);
+        e.target.innerText = 'CANCEL';
+        div.insertAdjacentElement('afterbegin',ul);
+    }
 }
 
-function handleSubmitIngredients() { //TODO: should alert user when they are about to overwrite a previously saved recipe
+function handleSubmitIngredients() {
     let radioButtons = document.querySelectorAll('input[type=radio]');
     let recipe = [];
     let checkcount = 0;
@@ -349,9 +423,95 @@ function store(key, value) {
     //local storage
     localStorage.setItem(key,JSON.stringify(value));
 }
-function retrieve(key){
+function retrieve(key) {
     let value = JSON.parse(localStorage.getItem(key));
     return value;
+}
+function addIngredientMix(ul, indexNum, ingredientNum) {
+    if (!ingredientNum) { // if ingredientNum null (meaning function called for new custom ingredient mix)
+        if (!document.getElementById('removecustom'+(indexNum+1))) { // If there is no Remove From Mix button
+            let buttonRemove = document.createElement('button');
+            buttonRemove.type = 'button';
+            buttonRemove.id = 'removecustom' + (indexNum+1);
+            buttonRemove.index = indexNum;
+            buttonRemove.innerText = 'Remove From Mix';
+            buttonRemove.classList.add('custombuttons');
+            buttonRemove.addEventListener('click', handleClickCustomAddRemoveOrSubmit);
+            ul.insertAdjacentElement('afterend', buttonRemove);
+        }
+        let li = document.createElement('li');
+        li.innerHTML = `
+            <form>
+                <input type="text" placeholder="Ingredient ..." name="customInputIngredient` + customFormSizes[indexNum][1] + `">
+                <input type="text" placeholder="Amount ..." name="customInputAmount` + customFormSizes[indexNum][1] + `">
+            </form>
+        `;
+        customFormSizes[indexNum][1]++;
+        li.classList.add('input' + indexNum + 'li' + customFormSizes[indexNum][1]);
+        ul.appendChild(li);
+    } else { // ingredientNum not null (and therefore called during edit of custom ingredient mix)
+        if(ul.children.length > 0) {
+            let li = document.createElement('li');
+            let ingredientName = referenceArray[indexNum].at(ingredientNum).at(-1)[0];
+            let amount = referenceArray[indexNum].at(ingredientNum).at(-1)[1];
+            li.innerHTML = `
+                <form>
+                    <input type="text" placeholder="Ingredient ..." name="customInputIngredient` + referenceArray[indexNum].at(ingredientNum).at(-1) + `">
+                    <input type="text" placeholder="Amount ..." name="customInputAmount` + referenceArray[indexNum].at(ingredientNum).at(-1) + `">
+                </form>
+            `;
+            if (customFormSizes[indexNum][0][ingredientNum]) {
+                customFormSizes[indexNum][0][ingredientNum]++;
+            } else {
+                customFormSizes[indexNum][0][ingredientNum] = 1;
+            }
+            li.id = ('input' + indexNum + '/'+ingredientNum+'li' + customFormSizes[indexNum][0][ingredientNum]);
+            li.classList.add('editlist');
+            ul.appendChild(li);
+            if (!document.getElementById('removecustom' + (indexNum+1) + '/' + ingredientNum)) { // If there is no Remove From Mix button
+                let buttonRemove = document.createElement('button');
+                buttonRemove.type = 'button';
+                buttonRemove.id = 'removecustom' + (indexNum+1) + '/' + ingredientNum;
+                buttonRemove.index = indexNum;
+                buttonRemove.ingredient = ingredientNum;
+                buttonRemove.innerText = 'Remove From Mix';
+                buttonRemove.classList.add('custombuttons');
+                buttonRemove.addEventListener('click', handleClickEditAddRemoveOrSubmit);
+                ul.insertAdjacentElement('afterbegin', buttonRemove);
+            }
+        } else {
+            for (let i = 0; i < referenceArray[indexNum].at(ingredientNum).length; i++) {
+                let li = document.createElement('li');
+                let ingredientName = referenceArray[indexNum].at(ingredientNum)[i][0];
+                let amount = referenceArray[indexNum].at(ingredientNum)[i][1];
+                li.innerHTML = `
+                    <form>
+                        <input type="text" placeholder="Ingredient ..." value="`+ingredientName+`" name="customInputIngredient` + i + `">
+                        <input type="text" placeholder="Amount ..." value="`+amount+`" name="customInputAmount` + i + `">
+                    </form>
+                `;
+                if (customFormSizes[indexNum][0][ingredientNum]) {
+                    customFormSizes[indexNum][0][ingredientNum]++;
+                } else {
+                    customFormSizes[indexNum][0][ingredientNum] = 1;
+                }
+                li.id = ('input' + indexNum + '/'+ingredientNum+'li' + customFormSizes[indexNum][0][ingredientNum]);
+                li.classList.add('editlist');
+                ul.appendChild(li);
+            }
+            if (referenceArray[indexNum].at(ingredientNum).length > 1) { // If there is no Remove From Mix button
+                let buttonRemove = document.createElement('button');
+                buttonRemove.type = 'button';
+                buttonRemove.id = 'removecustom' + (indexNum+1) + '/' + ingredientNum;
+                buttonRemove.index = indexNum;
+                buttonRemove.ingredient = ingredientNum;
+                buttonRemove.innerText = 'Remove From Mix';
+                buttonRemove.classList.add('custombuttons');
+                buttonRemove.addEventListener('click', handleClickEditAddRemoveOrSubmit);
+                ul.insertAdjacentElement('afterbegin', buttonRemove);
+            }
+        }
+    }
 }
 function createElementFromHTML(HTML) {
     let div = document.createElement('div');
@@ -403,9 +563,10 @@ if (document.URL.includes('index.html') || document.URL == 'https://julian-galle
                 label.innerText = inner;
                 
                 let deleteRadio = createElementFromHTML(`<button type="button" class="delete-radio" data-index="`+i+`" value="`+j+`">DELETE</button>`);
-                let editRadio = createElementFromHTML(`<button type="button" class="edit-radio" data-index="`+i+`" value="`+j+`">EDIT</button>`);
+                let editRadio = createElementFromHTML(`<button type="button" class="edit-radio" id="edit`+i+`/`+j+`" data-index="`+i+`" value="`+j+`">EDIT</button>`);
+                editButtonClicked[i][j] = 0; //set edit button status (not clicked)
                 deleteRadio.addEventListener('click', handleDeleteRadio);
-                deleteRadio.addEventListener('click', handleEditRadio);
+                editRadio.addEventListener('click', handleEditRadio);
 
                 let clear = createElementFromHTML('<div class="clear" data-selector-value="clear'+i+'/'+(j)+'"></div>');
 
