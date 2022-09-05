@@ -346,11 +346,11 @@ function handleEditRadio(e) { //TODO:
 
     if (editButtonClicked[index][ingredientIndex]) { //If The edit form is already open
         // Close edit ingredient forms
-        let ul = document.getElementById('ul'+indexNum+'/'+ingredientIndex);
+        let ul = document.getElementById('ul'+index+'/'+ingredientIndex);
         ul.remove();
         
-        editButtonClicked[indexNum][ingredientIndex] = 0;
-        customFormSizes[indexNum][0][ingredientIndex] = 0;
+        editButtonClicked[index][ingredientIndex] = 0;
+        customFormSizes[index][0][ingredientIndex] = 0;
         e.target.innerText = 'EDIT';
     } else { // if the edit form has not been opened
         let div = document.querySelector('div.clear[data-selector-value="clear'+index+'/'+ingredientIndex+'"]');
@@ -382,6 +382,7 @@ function handleEditRadio(e) { //TODO:
         ul.insertAdjacentElement('afterbegin', buttonAdd);
         e.target.innerText = 'CANCEL';
         div.insertAdjacentElement('afterbegin',ul);
+        editButtonClicked[index][ingredientIndex] = 1;
     }
 }
 
@@ -581,10 +582,16 @@ if (document.URL.includes('index.html') || document.URL == 'https://julian-galle
     }
 } else if (document.URL.includes('finish.html')) {
     (function(){
-        let recipes = new Map(retrieve('recipes'));
-        let target = retrieve('targetrecipe');
+        let localRecipes = retrieve('recipes');
+        let recipes;
+        if (localRecipes) {
+            recipes = new Map(localRecipes);
+        } else {
+            recipes = finishedRecipes;
+        }
+        let target = retrieve('targetrecipe'); // no check because there should ALWAYS be a target
         let recipe = recipes.get(target);
-        for (let i = 0; i < recipe.length-1; i++) { // length-1 because we don't need the last index (recipe name)
+        for (let i = 0; i < recipe.length; i++) { // length-1 because we don't need the last index (recipe name)
             let text = recipe[i][0][1]+' '+recipe[i][0][0];
             for (let j = 1; j < recipe[i].length; j++) {
                 text += ' + '+recipe[i][j][1]+' '+recipe[i][j][0];
