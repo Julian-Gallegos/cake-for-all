@@ -7,15 +7,99 @@
 *   TODO: Generate ingredient list on finish.html using finishedRecipes (which stores user ingredient options)
 *         - use localStorage get method with key='recipes' to update list and key='targetrecipe' to get target index
 *           of recipe in finishedRecipes
-*   TODO: Include buttons to remove and edit custom radio listings, and make sure those remove
-*         or edit the localStorage listings too (which means the variable arrays).
-*         Also do the same if implementing the recipes page down the line.
-*   TODO: Remove all current listings on ingredients.html (except <p> 
-*         and the stuff relating to customs)
-*         and have the backend ingredient lists like flourIngredients
-*         fill them out automatically
-*   TODO: This Relates to the above, have user custom listings saved, so it generates those too.   
+*   TODO: Use IngredientList object constructor and replace referencelist with it.
+*         Also consider adding functions like store and retrieve to it
 */
+
+// Constructors
+function IngredientList() {
+    this.flourIngredients = [
+        [['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
+            [['Rice Flour', '1 ⅓ Cup'], ['Tapioca Starch','1 Cup'], ['Baking Powder', '3 T.'], ['Sea Salt', '½ Tsp']]
+        ],
+        
+    this.sweetenerIngredients = [
+            [['Evaporated Cane Sugar', '1 Cup']],
+            [['Allulose ', '1 ⅓ cup']]
+        ],
+        
+    this.flavoringsIngredients = [
+            [['Vanilla Extract', '1 T.']],
+            [['Cardamom', '½ Tsp']]
+        ],
+        
+    this.eggIngredients = [
+            [['Chicken Eggs', '3']],
+            [['Applesauce', '¾']]
+        ],
+        
+    this.dairyIngredients = [
+            [['Whole Cowmilk', '¾ Cup']],
+            [['Hazelnut Milk', '¾ Cup'], ['Apple Cider Vinegar', '2 T.']]
+        ],
+        
+    this.shorteningIngredients = [
+            [['Softened Butter', '1 Cup']],
+            [['Softened Vegan Buttery Spread (Pressed, No Trans Fatty Acid)', '1 Cup']]
+        ],
+        
+    this.whippedIngredients = [
+            [['Whipping Cream (Heavy Cream) Chilled', '2 Cups'], ['Evaporated Cane Sugar', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']],
+            [['Coconut Cream (Chilled Overnight)', '2-3 Cans'], ['Confectioner\'s Sugar (Optional)', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']]
+        ],
+        
+    this.decorationIngredients = [
+            [['Strawberries Sliced', '½ Cup']],
+            [['Raspberries', '½ Cup']]
+        ],
+        
+    this.flourIngredientsBase = [
+            [['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
+            [['Rice Flour', '1 ⅓ Cup'], ['Tapioca Starch','1 Cup'], ['Baking Powder', '3 T.'], ['Sea Salt', '½ Tsp']]
+        ],
+        
+    this.sweetenerIngredientsBase = [
+            [['Evaporated Cane Sugar', '1 Cup']],
+            [['Allulose ', '1 ⅓ cup']]
+        ],
+        
+    this.flavoringsIngredientsBase = [
+            [['Vanilla Extract', '1 T.']],
+            [['Cardamom', '½ Tsp']]
+        ],
+        
+    this.eggIngredientsBase = [
+            [['Chicken Eggs', '3']],
+            [['Applesauce', '¾']]
+        ],
+        
+    this.dairyIngredientsBase = [
+            [['Whole Cowmilk', '¾ Cup']],
+            [['Hazelnut Milk', '¾ Cup'], ['Apple Cider Vinegar', '2 T.']]
+        ],
+        
+    this.shorteningIngredientsBase = [
+            [['Softened Butter', '1 Cup']],
+            [['Softened Vegan Buttery Spread (Pressed, No Trans Fatty Acid)', '1 Cup']]
+        ],
+        
+    this.whippedIngredientsBase = [
+            [['Whipping Cream (Heavy Cream) Chilled', '2 Cups'], ['Evaporated Cane Sugar', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']],
+            [['Coconut Cream (Chilled Overnight)', '2-3 Cans'], ['Confectioner\'s Sugar (Optional)', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']]
+        ],
+        
+    this.decorationIngredientsBase = [
+            [['Strawberries Sliced', '½ Cup']],
+            [['Raspberries', '½ Cup']]
+        ],
+
+    this.save = function () {
+        localStorage.setItem('ingredients',JSON.stringify(this));
+    },
+    this.load = function () {
+        return JSON.parse(localStorage.getItem('ingredients'));
+    }
+}
 
 // Variables
 const flourIngredients = [
@@ -132,7 +216,6 @@ const finishedRecipes = new Map([
         [decorationIngredients[1]],
     ]
     ]
-
 ]); 
 
 const customButtonClicked = [0,0,0,0,0,0,0,0]; // 0 = custom forms closed, 1 = open, for each custom mix form, probably redundant
