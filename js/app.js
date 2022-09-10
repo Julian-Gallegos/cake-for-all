@@ -17,85 +17,50 @@
 *   TODO: This Relates to the above, have user custom listings saved, so it generates those too.   
 */
 
+// Object Constructors
+function Ingredient(name, amount) {
+    this.name = name;
+    this.amount = amount;
+}
+
 // Variables
 const flourIngredients = [
-[['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
-    [['Rice Flour', '1 ⅓ Cup'], ['Tapioca Starch','1 Cup'], ['Baking Powder', '3 T.'], ['Sea Salt', '½ Tsp']]
+    [new Ingredient('All-Purpose White Flour', '2 ⅔ Cup'), new Ingredient('Baking Powder','1 T.'), new Ingredient('Sea Salt', '½ Tsp')],
+    [new Ingredient('Rice Flour', '1 ⅓ Cup'), new Ingredient('Tapioca Starch','1 Cup'), new Ingredient('Baking Powder', '3 T.'), new Ingredient('Sea Salt', '½ Tsp')]
 ];
-
 const sweetenerIngredients = [
-    [['Evaporated Cane Sugar', '1 Cup']],
-    [['Allulose ', '1 ⅓ cup']]
+    [new Ingredient('Evaporated Cane Sugar', '1 Cup')],
+    [new Ingredient('Allulose ', '1 ⅓ cup')]
 ];
 
 const flavoringsIngredients = [
-    [['Vanilla Extract', '1 T.']],
-    [['Cardamom', '½ Tsp']]
+    [new Ingredient('Vanilla Extract', '1 T.')],
+    [new Ingredient('Cardamom', '½ Tsp')]
 ];
 
 const eggIngredients = [
-    [['Chicken Eggs', '3']],
-    [['Applesauce', '¾']]
+    [new Ingredient('Chicken Eggs', '3')],
+    [new Ingredient('Applesauce', '¾')]
 ];
 
 const dairyIngredients = [
-    [['Whole Cowmilk', '¾ Cup']],
-    [['Hazelnut Milk', '¾ Cup'], ['Apple Cider Vinegar', '2 T.']]
+    [new Ingredient('Whole Cowmilk', '¾ Cup')],
+    [new Ingredient('Hazelnut Milk', '¾ Cup'), new Ingredient('Apple Cider Vinegar', '2 T.')]
 ];
 
 const shorteningIngredients = [
-    [['Softened Butter', '1 Cup']],
-    [['Softened Vegan Buttery Spread (Pressed, No Trans Fatty Acid)', '1 Cup']]
+    [new Ingredient('Softened Butter', '1 Cup')],
+    [new Ingredient('Softened Vegan Buttery Spread (Pressed, No Trans Fatty Acid)', '1 Cup')]
 ];
 
 const whippedIngredients = [
-    [['Whipping Cream (Heavy Cream) Chilled', '2 Cups'], ['Evaporated Cane Sugar', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']],
-    [['Coconut Cream (Chilled Overnight)', '2-3 Cans'], ['Confectioner\'s Sugar (Optional)', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']]
+    [new Ingredient('Whipping Cream (Heavy Cream) Chilled', '2 Cups'), new Ingredient('Evaporated Cane Sugar', '2 T.'), new Ingredient('Vanilla Extract (Optional)', '1 Tsp')],
+    [new Ingredient('Coconut Cream (Chilled Overnight)', '2-3 Cans'), new Ingredient('Confectioner\'s Sugar (Optional)', '2 T.'), new Ingredient('Vanilla Extract (Optional)', '1 Tsp')]
 ];
 
-const decorationIngredients = [
-    [['Strawberries Sliced', '½ Cup']],
-    [['Raspberries', '½ Cup']]
-];
-
-const flourIngredientsBase = [
-    [['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
-    [['Rice Flour', '1 ⅓ Cup'], ['Tapioca Starch','1 Cup'], ['Baking Powder', '3 T.'], ['Sea Salt', '½ Tsp']]
-];
-
-const sweetenerIngredientsBase = [
-    [['Evaporated Cane Sugar', '1 Cup']],
-    [['Allulose ', '1 ⅓ cup']]
-];
-
-const flavoringsIngredientsBase = [
-    [['Vanilla Extract', '1 T.']],
-    [['Cardamom', '½ Tsp']]
-];
-
-const eggIngredientsBase = [
-    [['Chicken Eggs', '3']],
-    [['Applesauce', '¾']]
-];
-
-const dairyIngredientsBase = [
-    [['Whole Cowmilk', '¾ Cup']],
-    [['Hazelnut Milk', '¾ Cup'], ['Apple Cider Vinegar', '2 T.']]
-];
-
-const shorteningIngredientsBase = [
-    [['Softened Butter', '1 Cup']],
-    [['Softened Vegan Buttery Spread (Pressed, No Trans Fatty Acid)', '1 Cup']]
-];
-
-const whippedIngredientsBase = [
-    [['Whipping Cream (Heavy Cream) Chilled', '2 Cups'], ['Evaporated Cane Sugar', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']],
-    [['Coconut Cream (Chilled Overnight)', '2-3 Cans'], ['Confectioner\'s Sugar (Optional)', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']]
-];
-
-const decorationIngredientsBase = [
-    [['Strawberries Sliced', '½ Cup']],
-    [['Raspberries', '½ Cup']]
+const decorationIngredients = [ //decorationIngredients
+            [new Ingredient('Strawberries Sliced', '½ Cup')],
+            [new Ingredient('Raspberries', '½ Cup')]
 ];
 
 // Indices are important for array references when adding new ingredients, and this is easier to read than a 4D array would be
@@ -139,7 +104,7 @@ const customButtonClicked = [0,0,0,0,0,0,0,0]; // 0 = custom forms closed, 1 = o
 const editButtonClicked = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]; // Same as custom button, but also has to track multipe radio indices at each ingredient listing
 const customFormSizes = [[[],0],[[],0],[[],0],[[],0],[[],0],[[],0],[[],0],[[],0]]; // number of form rows opened by Add to Mix button, for each [edit mixlist,custommix]
 const shortListNames = ['flour','sweetener','flavor','egg','dairy','shortening','whippped','decoration'];
-// Event Listeners
+// Event Listeners. The handler functions sometimes also call event listeners when generating new html elements
 if (document.URL.includes("ingredients.html")) {
     let customs = document.querySelectorAll('.custom');
     for (let i = 0; i < customs.length; i++) {
@@ -217,12 +182,13 @@ function handleClickCustomAddRemoveOrSubmit(e) {
             if (ingredient == '' || amount == '') { // if not all forms filled then do not save custom ingredient
                 return;
             }
-            ingredientMix[i] = [ingredient, amount];
+            ingredientMix[i] = new Ingredient(ingredient, amount);
         }
         
         let ingredientArray = retrieve(shortListNames[indexNum]);
         if (ingredientArray) { //If custom ingredients have been added before, and stored with localStorage
             ingredientArray.push(ingredientMix);
+            referenceArray[indexNum] = ingredientArray;
             store(shortListNames[indexNum],ingredientArray); // Save the new ingredients list.
         } else {
             referenceArray[indexNum].push(ingredientMix); // Grab base ingredient list and push new ingredient
@@ -236,10 +202,10 @@ function handleClickCustomAddRemoveOrSubmit(e) {
         let label = document.createElement('label');
         label.htmlFor = id;
         label.classList.add('label');
-        let inner = ingredientMix[0][1]+' '+ingredientMix[0][0];
+        let inner = ingredientMix[0].amount+' '+ingredientMix[0].name;
         if (ingredientMix.length > 1) {
             for (let i = 1; i < ingredientMix.length; i++) {
-                inner = inner.concat(' + '+ingredientMix[i][1]+' '+ingredientMix[i][0]);
+                inner = inner.concat(' + '+ingredientMix[i].amount+' '+ingredientMix[i].name);
             }
         }
         label.innerText = inner;
@@ -262,7 +228,7 @@ function handleClickCustomAddRemoveOrSubmit(e) {
         document.getElementById('ul'+(indexNum+1)).innerHTML = '';
         document.querySelector('[value="addcustom'+(indexNum+1)+'"]').remove();
         document.querySelector('[value="submitcustom'+(indexNum+1)+'"]').remove();
-        let removeButton = document.querySelector('[value="removecustom'+(indexNum+1)+'"]');
+        let removeButton = document.getElementById('removecustom'+(indexNum+1));
         if (removeButton) {
             removeButton.remove();
         }
@@ -300,7 +266,7 @@ function handleClickEditAddRemoveOrSubmit(e) {
             if (ingredient == '' || amount == '') { // if not all forms filled then do not save custom ingredient
                 return;
             }
-            ingredientMix.push([ingredient, amount]);
+            ingredientMix.push(new Ingredient(ingredient, amount));
         }
         
         let ingredientArray = retrieve(shortListNames[indexNum]);
@@ -308,10 +274,10 @@ function handleClickEditAddRemoveOrSubmit(e) {
         store(shortListNames[indexNum],ingredientArray); // Save the new ingredients list
         
         let label = document.querySelector('label.label[for="'+shortListNames[indexNum]+(ingredientIndex+1)+'"]');
-        let inner = ingredientMix[0][1]+' '+ingredientMix[0][0];
+        let inner = ingredientMix[0].amount+' '+ingredientMix[0].name;
         if (ingredientMix.length > 1) {
             for (let i = 1; i < ingredientMix.length; i++) {
-                inner = inner.concat(' + '+ingredientMix[i][1]+' '+ingredientMix[i][0]);
+                inner = inner.concat(' + '+ingredientMix[i].amount+' '+ingredientMix[i].name);
             }
         }
         label.innerText = inner;
@@ -326,7 +292,7 @@ function handleClickEditAddRemoveOrSubmit(e) {
     }
 }
 
-function handleDeleteRadio(e) { //TODO:
+function handleDeleteRadio(e) {
     let index = Number(e.target.getAttribute('data-index'));
     let ingredientIndex = Number(e.target.getAttribute('value'));
     let ingredientArray = retrieve(shortListNames[index]);
@@ -339,7 +305,7 @@ function handleDeleteRadio(e) { //TODO:
     document.querySelector('div.clear[data-selector-value="clear'+index+'/'+ingredientIndex+'"]').remove();
 }
 
-function handleEditRadio(e) { //TODO:
+function handleEditRadio(e) {
     let index = Number(e.target.getAttribute('data-index'));
     let ingredientIndex = Number(e.target.getAttribute('value'));
     //let ingredientArray = retrieve(shortListNames[index]);
@@ -353,13 +319,13 @@ function handleEditRadio(e) { //TODO:
         customFormSizes[index][0][ingredientIndex] = 0;
         e.target.innerText = 'EDIT';
     } else { // if the edit form has not been opened
+        referenceArray[index] = retrieve(shortListNames[index]);
         let div = document.querySelector('div.clear[data-selector-value="clear'+index+'/'+ingredientIndex+'"]');
         let ul = document.createElement('ul');
         ul.id = 'ul'+index+'/'+ingredientIndex;
         ul.classList.add('customlist');
 
         addIngredientMix(ul,index,ingredientIndex);
-        console.log(ul);
         let buttonAdd = document.createElement('button');
         let buttonSubmit = document.createElement('button');
         buttonAdd.type = 'button';
@@ -457,8 +423,8 @@ function addIngredientMix(ul, indexNum, ingredientNum) {
             let amount = referenceArray[indexNum].at(ingredientNum).at(-1)[1];
             li.innerHTML = `
                 <form>
-                    <input type="text" placeholder="Ingredient ..." name="customInputIngredient` + referenceArray[indexNum].at(ingredientNum).at(-1) + `">
-                    <input type="text" placeholder="Amount ..." name="customInputAmount` + referenceArray[indexNum].at(ingredientNum).at(-1) + `">
+                    <input type="text" placeholder="Ingredient ..." name="customInputIngredient` + referenceArray[indexNum].at(ingredientNum).length + `">
+                    <input type="text" placeholder="Amount ..." name="customInputAmount` + referenceArray[indexNum].at(ingredientNum).length + `">
                 </form>
             `;
             if (customFormSizes[indexNum][0][ingredientNum]) {
@@ -483,8 +449,8 @@ function addIngredientMix(ul, indexNum, ingredientNum) {
         } else {
             for (let i = 0; i < referenceArray[indexNum].at(ingredientNum).length; i++) {
                 let li = document.createElement('li');
-                let ingredientName = referenceArray[indexNum].at(ingredientNum)[i][0];
-                let amount = referenceArray[indexNum].at(ingredientNum)[i][1];
+                let ingredientName = referenceArray[indexNum].at(ingredientNum)[i].name;
+                let amount = referenceArray[indexNum].at(ingredientNum)[i].amount;
                 li.innerHTML = `
                     <form>
                         <input type="text" placeholder="Ingredient ..." value="`+ingredientName+`" name="customInputIngredient` + i + `">
@@ -555,10 +521,10 @@ if (document.URL.includes('index.html') || document.URL == 'https://julian-galle
                 let label = document.createElement('label');
                 label.htmlFor = id;
                 label.classList.add('label');
-                let inner = ingredientMix[0][1]+' '+ingredientMix[0][0];
+                let inner = ingredientMix[0].amount+' '+ingredientMix[0].name;
                 if (ingredientMix.length > 1) {
                     for (let k = 1; k < ingredientMix.length; k++) {
-                        inner = inner.concat(' + '+ingredientMix[k][1]+' '+ingredientMix[k][0]);
+                        inner = inner.concat(' + '+ingredientMix[k].amount+' '+ingredientMix[k].name);
                     }
                 }
                 label.innerText = inner;
@@ -592,9 +558,9 @@ if (document.URL.includes('index.html') || document.URL == 'https://julian-galle
         let target = retrieve('targetrecipe'); // no check because there should ALWAYS be a target
         let recipe = recipes.get(target);
         for (let i = 0; i < recipe.length; i++) { // length-1 because we don't need the last index (recipe name)
-            let text = recipe[i][0][1]+' '+recipe[i][0][0];
+            let text = recipe[i][0].amount+' '+recipe[i][0].name;
             for (let j = 1; j < recipe[i].length; j++) {
-                text += ' + '+recipe[i][j][1]+' '+recipe[i][j][0];
+                text += ' + '+recipe[i][j].amount+' '+recipe[i][j].name;
             }
             let li = document.createElement('li');
             li.innerText = 'o	'+text;
