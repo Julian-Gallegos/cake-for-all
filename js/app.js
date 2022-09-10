@@ -10,95 +10,86 @@
 *   TODO: Use IngredientList object constructor and replace referencelist with it.
 *         Also consider adding functions like store and retrieve to it
 */
+// Object Prototypes
+const IngredientListPrototype = {
+    0: [ //flourIngredients
+        [new Ingredient('All-Purpose White Flour', '2 ⅔ Cup'), new Ingredient('Baking Powder','1 T.'), new Ingredient('Sea Salt', '½ Tsp')],
+        [new Ingredient('Rice Flour', '1 ⅓ Cup'), new Ingredient('Tapioca Starch','1 Cup'), new Ingredient('Baking Powder', '3 T.'), new Ingredient('Sea Salt', '½ Tsp')]
+    ],
+    1: [ //sweetenerIngredients
+        [new Ingredient('Evaporated Cane Sugar', '1 Cup')],
+        [new Ingredient('Allulose ', '1 ⅓ cup')]
+    ],
+    2: [ //flavoringsIngredients
+            [new Ingredient('Vanilla Extract', '1 T.')],
+            [new Ingredient('Cardamom', '½ Tsp')]
+    ],
+    3: [ //eggIngredients
+            [new Ingredient('Chicken Eggs', '3')],
+            [new Ingredient('Applesauce', '¾')]
+    ],
+    4: [ //dairyIngredients
+            [new Ingredient('Whole Cowmilk', '¾ Cup')],
+            [new Ingredient('Hazelnut Milk', '¾ Cup'), new Ingredient('Apple Cider Vinegar', '2 T.')]
+    ],
+    5: [ //shorteningIngredients
+            [new Ingredient('Softened Butter', '1 Cup')],
+            [new Ingredient('Softened Vegan Buttery Spread (Pressed, No Trans Fatty Acid)', '1 Cup')]
+    ],
+    6: [ //whippedIngredients
+            [new Ingredient('Whipping Cream (Heavy Cream) Chilled', '2 Cups'), new Ingredient('Evaporated Cane Sugar', '2 T.'), new Ingredient('Vanilla Extract (Optional)', '1 Tsp')],
+            [new Ingredient('Coconut Cream (Chilled Overnight)', '2-3 Cans'), new Ingredient('Confectioner\'s Sugar (Optional)', '2 T.'), new Ingredient('Vanilla Extract (Optional)', '1 Tsp')]
+    ],
+    7: [ //decorationIngredients
+            [new Ingredient('Strawberries Sliced', '½ Cup')],
+            [new Ingredient('Raspberries', '½ Cup')]
+    ],
 
-// Constructors
-function IngredientList() {
-    this.flourIngredients = [
-        [['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
-            [['Rice Flour', '1 ⅓ Cup'], ['Tapioca Starch','1 Cup'], ['Baking Powder', '3 T.'], ['Sea Salt', '½ Tsp']]
-        ],
-        
-    this.sweetenerIngredients = [
-            [['Evaporated Cane Sugar', '1 Cup']],
-            [['Allulose ', '1 ⅓ cup']]
-        ],
-        
-    this.flavoringsIngredients = [
-            [['Vanilla Extract', '1 T.']],
-            [['Cardamom', '½ Tsp']]
-        ],
-        
-    this.eggIngredients = [
-            [['Chicken Eggs', '3']],
-            [['Applesauce', '¾']]
-        ],
-        
-    this.dairyIngredients = [
-            [['Whole Cowmilk', '¾ Cup']],
-            [['Hazelnut Milk', '¾ Cup'], ['Apple Cider Vinegar', '2 T.']]
-        ],
-        
-    this.shorteningIngredients = [
-            [['Softened Butter', '1 Cup']],
-            [['Softened Vegan Buttery Spread (Pressed, No Trans Fatty Acid)', '1 Cup']]
-        ],
-        
-    this.whippedIngredients = [
-            [['Whipping Cream (Heavy Cream) Chilled', '2 Cups'], ['Evaporated Cane Sugar', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']],
-            [['Coconut Cream (Chilled Overnight)', '2-3 Cans'], ['Confectioner\'s Sugar (Optional)', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']]
-        ],
-        
-    this.decorationIngredients = [
-            [['Strawberries Sliced', '½ Cup']],
-            [['Raspberries', '½ Cup']]
-        ],
-        
-    this.flourIngredientsBase = [
-            [['All-Purpose White Flour', '2 ⅔ Cup'], ['Baking Powder','1 T.'], ['Sea Salt', '½ Tsp']],
-            [['Rice Flour', '1 ⅓ Cup'], ['Tapioca Starch','1 Cup'], ['Baking Powder', '3 T.'], ['Sea Salt', '½ Tsp']]
-        ],
-        
-    this.sweetenerIngredientsBase = [
-            [['Evaporated Cane Sugar', '1 Cup']],
-            [['Allulose ', '1 ⅓ cup']]
-        ],
-        
-    this.flavoringsIngredientsBase = [
-            [['Vanilla Extract', '1 T.']],
-            [['Cardamom', '½ Tsp']]
-        ],
-        
-    this.eggIngredientsBase = [
-            [['Chicken Eggs', '3']],
-            [['Applesauce', '¾']]
-        ],
-        
-    this.dairyIngredientsBase = [
-            [['Whole Cowmilk', '¾ Cup']],
-            [['Hazelnut Milk', '¾ Cup'], ['Apple Cider Vinegar', '2 T.']]
-        ],
-        
-    this.shorteningIngredientsBase = [
-            [['Softened Butter', '1 Cup']],
-            [['Softened Vegan Buttery Spread (Pressed, No Trans Fatty Acid)', '1 Cup']]
-        ],
-        
-    this.whippedIngredientsBase = [
-            [['Whipping Cream (Heavy Cream) Chilled', '2 Cups'], ['Evaporated Cane Sugar', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']],
-            [['Coconut Cream (Chilled Overnight)', '2-3 Cans'], ['Confectioner\'s Sugar (Optional)', '2 T.'], ['Vanilla Extract (Optional)', '1 Tsp']]
-        ],
-        
-    this.decorationIngredientsBase = [
-            [['Strawberries Sliced', '½ Cup']],
-            [['Raspberries', '½ Cup']]
-        ],
+    addIngredient(listIndex, ingredientMixIndex) {
 
-    this.save = function () {
+    },
+    editIngredient(listIndex, ingredientMixIndex, ingredientIndex) {
+
+    },
+    removeIngredient(listIndex, ingredientMixIndex, ingredientIndex) {
+
+    },
+    removeIngredientMix(listIndex, ingredientMixIndex) {
+
+    },
+    
+    save() {
         localStorage.setItem('ingredients',JSON.stringify(this));
     },
-    this.load = function () {
+    load() {
         return JSON.parse(localStorage.getItem('ingredients'));
     }
+}
+
+// Constructors
+function Ingredient(name, amount) {
+    this.name = name;
+    this.amount = amount;
+
+    this.setName = function(newName) {
+        this.name = newName;
+    }
+    this.setAmount = function(newAmount) {
+        this.amount = newAmount;
+    }
+}
+
+function IngredientList() {
+
+    
+
+    this.addIngredientMix(ingredientListIndex, ingredientMix) {
+
+    }
+
+
+
+    
 }
 
 // Variables
